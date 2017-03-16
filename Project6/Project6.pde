@@ -8,6 +8,7 @@ import java.text.DecimalFormat;
 //object references
 Table tablea;
 ParallelGraph parallelGraph = new ParallelGraph();
+ScatterMatrix scatterMatrix = new ScatterMatrix();
 ElementViewer elementViewerMain = new ElementViewer();
 
 void setup() {
@@ -43,10 +44,15 @@ void draw() {
     elementViewerMain.createViewer(width - 130, 10,  width - 20, height - 400, tablea);
     elementViewerMain.draw();
     
+    //draws scatterplot matrix
+    scatterMatrix.draw();
+    
     //draws parallel coordinates graph
 //    parallelGraph.initializeGraph(tablea, elementViewerMain);
 //    parallelGraph.setPosition(width - 340, 10, 200, 100);
 //    parallelGraph.draw();
+
+
 
   
   }

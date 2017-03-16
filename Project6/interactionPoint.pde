@@ -13,6 +13,12 @@ class interactionPoint
      y_value = _yValue;
   }
   
+ 
+  void draw()
+  {
+    point(x_value, y_value);
+  }
+  
   
   
 }
