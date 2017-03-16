@@ -52,8 +52,8 @@ class TrendLine
         //sets boundaries of points to boundaries of graph
         float plotMinD = graphReference.d0 + graphReference.windowBuffer - 150;
         float plotMaxD = graphReference.d0 + graphReference.w - graphReference.windowBuffer - 25;
-        float plotMinE = graphReference.e0 + graphReference.h - graphReference.windowBuffer - graphReference.axesBuffer;
-        float plotMaxE = graphReference.e0 + graphReference.windowBuffer;
+        float plotMinE = graphReference.e0 + graphReference.h - graphReference.windowBuffer - graphReference.axesBuffer - 25;
+        float plotMaxE = graphReference.e0 + graphReference.windowBuffer + 5;
        
         float dMin = plotMinD-graphReference.windowBuffer;
         float eMin = plotMinE-graphReference.windowBuffer;

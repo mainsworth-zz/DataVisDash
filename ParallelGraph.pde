@@ -20,8 +20,8 @@ class ParallelGraph {
   float [] maxValues;
   
   //settings for the graph
-  float windowBuffer = 15;
-  float axesBuffer = 50;
+  float windowBuffer = 0;
+  float axesBuffer = 0;
   float boxSize = 8;
   int tickMarkCount = 8;
   int numGuidelines = 4;
@@ -123,7 +123,7 @@ class ParallelGraph {
   //draws tickmarks on each parallel line
   void drawGuidelines( float plotMinD, float plotMinE, float plotMaxD, float plotMaxE ) 
   {
-    float dMin = plotMinD-windowBuffer;
+    float dMin = plotMinD-windowBuffer - 40;
     float eMin = plotMinE+windowBuffer;
     float dMax = plotMaxD-windowBuffer;
     float eMax = plotMaxE+windowBuffer;
@@ -221,9 +221,9 @@ class ParallelGraph {
   //draws each parallel line
   void drawDimensions(float plotMinD, float plotMinE, float plotMaxD, float plotMaxE)
   {
-    float dMin = plotMinD-windowBuffer;
+    float dMin = plotMinD-windowBuffer- 25;
     float eMin = plotMinE+windowBuffer;
-    float dMax = plotMaxD-windowBuffer;
+    float dMax = plotMaxD-windowBuffer - 25;
     float eMax = plotMaxE+windowBuffer;
     
     stroke(150);
@@ -239,7 +239,7 @@ class ParallelGraph {
       
        strokeWeight(5);
        stroke(0);
-       line( x, eMin, x, eMax-windowBuffer );
+       line( x, eMin - 2, x, eMax-windowBuffer );
        line( x-5, eMax - windowBuffer + 5, x, eMax  - windowBuffer);
        line( x, eMax - windowBuffer, x+5, eMax - windowBuffer + 5);
        textAlign(CENTER, CENTER);
@@ -335,7 +335,7 @@ class ParallelGraph {
     if(smallestIndex != -1)
     {
       
-      viewerReference.headerValues.set(0, str(smallestIndex+2));
+      viewerReference.headerValues.set(0, str(smallestIndex));
       for(int i = 0; i < 4; i++)
       {
         viewerReference.headerValues.set(i+1, tablea.getString(smallestIndex, i)); 

@@ -53,11 +53,14 @@ class ElementViewer
         fill(0);
         
         textAlign(CENTER, CENTER);
-        text(headerNames[i], bottomRightX + viewerWidth+55, y-50);
+        textSize(12);
+        text(headerNames[i], bottomRightX + viewerWidth+55, y-60);
         
         if(headerValues.size() == 5)
         {
+        textSize(12);
         text(headerValues.get(i), bottomRightX + viewerWidth+55, y-20);
+        textSize(12);
         }
       }
     

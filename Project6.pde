@@ -11,7 +11,7 @@ ParallelGraph parallelGraph = new ParallelGraph();
 ElementViewer elementViewerMain = new ElementViewer();
 
 void setup() {
- size(800,400);
+ size(1200,800);
  background(255);
  textSize(14);
  smooth();
@@ -40,13 +40,13 @@ void draw() {
   { 
     
     //draws element viewer
-    elementViewerMain.createViewer(width - 130, 10,  width - 20, height - 100, tablea);
+    elementViewerMain.createViewer(width - 130, 10,  width - 20, height - 400, tablea);
     elementViewerMain.draw();
     
     //draws parallel coordinates graph
-    parallelGraph.initializeGraph(tablea, elementViewerMain);
-    parallelGraph.setPosition(5, 0, width - 150, height -10);
-    parallelGraph.draw();
+//    parallelGraph.initializeGraph(tablea, elementViewerMain);
+//    parallelGraph.setPosition(width - 340, 10, 200, 100);
+//    parallelGraph.draw();
 
   
   }
