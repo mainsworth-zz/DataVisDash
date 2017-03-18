@@ -76,7 +76,7 @@ class TrendLine
             pointValues.append(tablea.getString(i, "SATV"));
             pointValues.append(tablea.getString(i, "ACT"));
             pointValues.append(tablea.getString(i, "GPA"));
-        interactionPoint newPoint = new interactionPoint(x, y, 1, pointValues, viewerReference);
+        interactionPoint newPoint = new interactionPoint(i+2, x, y, 1, pointValues, viewerReference);
         trendPoints.add(newPoint);
      }
    

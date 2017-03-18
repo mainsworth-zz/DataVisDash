@@ -21,6 +21,8 @@ class ScatterPlot
   int windowBuffer = 5;
   int pointSize = 5;
   
+  int selectedRow = -1;
+  
   boolean mainWindow = false;
     
   DecimalFormat dfX = new DecimalFormat("#");
@@ -37,6 +39,12 @@ class ScatterPlot
     e0 = _e0;
     w = _w;
     h = _h;
+  }
+  
+  void setSelection(int _selectedRow)
+  {
+    selectedRow = _selectedRow;
+    
   }
   
   void initializeGraph(Table _data, ScatterMatrix _matrixReference, String _dimension0, String _dimension1, boolean _mainWindow) 
@@ -263,7 +271,7 @@ class ScatterPlot
 //            println(pointValues.get(3));
             pointValues.reverse();
             
-            interactionPoint interactionNewPoint = new interactionPoint(x, y, pointSize, pointValues, elementViewer);
+            interactionPoint interactionNewPoint = new interactionPoint(i+2, x, y, pointSize, pointValues, elementViewer);
 
             pointCollection.add(interactionNewPoint);
           }
@@ -275,7 +283,6 @@ class ScatterPlot
                  pointCollection.get(i).draw();
                  if(mainWindow)
                  {
-
                    pointCollection.get(i).highlightPoint(); //interaction function
                  }
                }

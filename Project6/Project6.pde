@@ -11,6 +11,8 @@ ParallelGraph parallelGraph = new ParallelGraph();
 ScatterMatrix scatterMatrix = new ScatterMatrix();
 ElementViewer elementViewerMain = new ElementViewer();
 
+int selectedRow = -1;
+
 
 void setup() {
  size(1200,800);
@@ -52,6 +54,11 @@ void draw() {
     //draws scatterplot matrix
     scatterMatrix.addViewer(elementViewerMain);
     scatterMatrix.draw();
+    
+    if(selectedRow != -1)
+    {
+      scatterMatrix.setSelection(selectedRow);
+    }
     
     //draws parallel coordinates graph
 //    parallelGraph.initializeGraph(tablea, elementViewerMain);

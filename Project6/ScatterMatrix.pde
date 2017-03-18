@@ -30,6 +30,8 @@ class ScatterMatrix
   int topLeftY;
   int splomWidth;
   int splomHeight;
+  
+  int selectedRow = -1;
 
   //dimensions of graph being used
   String dimension0 = "";
@@ -53,6 +55,12 @@ class ScatterMatrix
   void addViewer(ElementViewer reference)
   {
     viewerReference = reference; 
+    
+  }
+  
+  void setSelection(int _selectedRow)
+  {
+     selectedRow = _selectedRow;
     
   }
   

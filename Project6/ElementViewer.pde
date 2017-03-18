@@ -12,6 +12,7 @@ class ElementViewer
   float topLeftX, topLeftY, bottomRightX, bottomRightY, viewerWidth, viewerHeight;
   int fillColor, columnCount;
 
+  int selectionRow = -1;
   boolean showSelectionMenu = false;
 
   ElementViewer() {}
@@ -83,6 +84,7 @@ class ElementViewer
       }
     
   }
+  
   
    
 }
