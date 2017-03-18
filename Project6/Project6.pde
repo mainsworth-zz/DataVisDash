@@ -10,6 +10,7 @@ Table tablea;
 ParallelGraph parallelGraph = new ParallelGraph();
 ScatterMatrix scatterMatrix = new ScatterMatrix();
 ElementViewer elementViewerMain = new ElementViewer();
+//ArrayList<interactionPoint> pointCollection = new ArrayList<interactionPoint>();
 
 void setup() {
  size(1200,800);
@@ -34,12 +35,17 @@ void fileSelected(File selection) {
 
 
 
+
+
 void draw() {
  if (tablea == null)
     { return; }
  else
   { 
-    
+    rectMode(CORNERS);
+    fill(205);
+    rect(0, 0, width, height);
+    fill(255);
     //draws element viewer
     elementViewerMain.createViewer(width - 130, 10,  width - 20, height - 400, tablea);
     elementViewerMain.draw();

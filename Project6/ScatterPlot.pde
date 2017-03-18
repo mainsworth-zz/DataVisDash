@@ -19,7 +19,7 @@ class ScatterPlot
   
   int axesBuffer = 0;
   int windowBuffer = 5;
-  int pointSize = 7;
+  int pointSize = 5;
   
   boolean mainWindow = false;
     
@@ -249,9 +249,9 @@ class ScatterPlot
             float a1 = tablea.getFloat(i, dimension1);
             float x = map(a0, minValues[0], maxValues[0], plotMinD, plotMaxD-windowBuffer);
             float y = map(a1, minValues[1], maxValues[1], plotMinE, plotMaxE+windowBuffer);
-            String[] pointValues = new String[]{str(tablea.getFloat(i, "GPA")), str(tablea.getFloat(i, "ACT")), str(tablea.getFloat(i, "SATV")), str(tablea.getFloat(i, "SATM")), str(i+1)}; 
+//            String[] pointValues = new String[]{str(tablea.getFloat(i, "GPA")), str(tablea.getFloat(i, "ACT")), str(tablea.getFloat(i, "SATV")), str(tablea.getFloat(i, "SATM")), str(i+1)}; 
             
-            interactionPoint interactionNewPoint = new interactionPoint(x, y);
+            interactionPoint interactionNewPoint = new interactionPoint(x, y, pointSize);
             pointCollection.add(interactionNewPoint);
           }
           

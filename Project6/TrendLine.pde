@@ -69,7 +69,7 @@ class TrendLine
        
         float x = map( i+1, 0, graphReference.numOfDimensions, dMin, dMax );
         float y = map( dataArray[i], graphReference.dimensionValues.get(i).minValue, graphReference.dimensionValues.get(i).maxValue, eMin+10, eMax+50);
-        interactionPoint newPoint = new interactionPoint(x, y);
+        interactionPoint newPoint = new interactionPoint(x, y, 1);
         trendPoints.add(newPoint);
      }
    
