@@ -74,7 +74,12 @@ class interactionPoint
  
   void draw()
   {
+    if(rowNumber == elementViewerReference.selectionRow)
+    {
+       fill(fillColor);
+    }
     ellipse(x_value, y_value, size, size);
+    fill(255);
   }
   
   

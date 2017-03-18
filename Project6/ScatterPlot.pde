@@ -260,7 +260,6 @@ class ScatterPlot
             float y = map(a1, minValues[1], maxValues[1], plotMinE, plotMaxE+windowBuffer);
             StringList pointValues = new StringList();
             pointValues.append(str(i+2));
-            println(i+1);
             pointValues.append(tablea.getString(i, "SATM"));
 //            println(pointValues.get(0));
             pointValues.append(tablea.getString(i, "SATV"));
@@ -285,6 +284,20 @@ class ScatterPlot
                  {
                    pointCollection.get(i).highlightPoint(); //interaction function
                  }
+                 
+/*                 else
+                 {
+                   if ((i+2) == elementViewer.selectionRow) 
+                   {
+                      fill(pointCollection.get(i).fillColor);
+                      ellipse(pointCollection.get(i).x_value, pointCollection.get(i).y_value, pointCollection.get(i).size, pointCollection.get(i).size); 
+                   }
+                   
+                   else
+                   {
+                     fill(255); 
+                   }
+                 }*/
                }
              }
   

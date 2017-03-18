@@ -74,12 +74,6 @@ class ElementViewer
   {
       for(int i = 0; i < _headers.size(); i++)
       {
-                    println(_headers.get(4));
-                    println(_headers.get(3));
-                    println(_headers.get(2));
-                    println(_headers.get(1));
-                    println(_headers.get(0));
-
         headerValues.set(i, _headers.get(i)); 
       }
     
