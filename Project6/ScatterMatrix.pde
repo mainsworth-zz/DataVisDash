@@ -34,8 +34,6 @@ class ScatterMatrix
   //dimensions of graph being used
   String dimension0 = "";
   String dimension1 = "";
-
-
   
   void selectGraph(String _dimension0, String _dimension1)
   {
@@ -50,6 +48,12 @@ class ScatterMatrix
       splomWidth = _splomWidth;
       splomHeight = _splomHeight;
       
+  }
+  
+  void addViewer(ElementViewer reference)
+  {
+    viewerReference = reference; 
+    
   }
   
   void draw()

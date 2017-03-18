@@ -113,6 +113,7 @@ class ScatterPlot
 
     
   }
+
    
        
   void drawGuidelines( float plotMinD, float plotMinE, float plotMaxD, float plotMaxE ) 
@@ -249,9 +250,21 @@ class ScatterPlot
             float a1 = tablea.getFloat(i, dimension1);
             float x = map(a0, minValues[0], maxValues[0], plotMinD, plotMaxD-windowBuffer);
             float y = map(a1, minValues[1], maxValues[1], plotMinE, plotMaxE+windowBuffer);
-//            String[] pointValues = new String[]{str(tablea.getFloat(i, "GPA")), str(tablea.getFloat(i, "ACT")), str(tablea.getFloat(i, "SATV")), str(tablea.getFloat(i, "SATM")), str(i+1)}; 
+            StringList pointValues = new StringList();
+            pointValues.append(str(i+2));
+            println(i+1);
+            pointValues.append(tablea.getString(i, "SATM"));
+//            println(pointValues.get(0));
+            pointValues.append(tablea.getString(i, "SATV"));
+//            println(pointValues.get(1));
+            pointValues.append(tablea.getString(i, "ACT"));
+//            println(pointValues.get(2));
+            pointValues.append(tablea.getString(i, "GPA"));
+//            println(pointValues.get(3));
+            pointValues.reverse();
             
-            interactionPoint interactionNewPoint = new interactionPoint(x, y, pointSize);
+            interactionPoint interactionNewPoint = new interactionPoint(x, y, pointSize, pointValues, elementViewer);
+
             pointCollection.add(interactionNewPoint);
           }
           
@@ -262,7 +275,8 @@ class ScatterPlot
                  pointCollection.get(i).draw();
                  if(mainWindow)
                  {
- //                  pointCollection.get(i).highlightPoint(); //interaction function
+
+                   pointCollection.get(i).highlightPoint(); //interaction function
                  }
                }
              }

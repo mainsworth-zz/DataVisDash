@@ -10,7 +10,7 @@ Table tablea;
 ParallelGraph parallelGraph = new ParallelGraph();
 ScatterMatrix scatterMatrix = new ScatterMatrix();
 ElementViewer elementViewerMain = new ElementViewer();
-//ArrayList<interactionPoint> pointCollection = new ArrayList<interactionPoint>();
+
 
 void setup() {
  size(1200,800);
@@ -36,7 +36,6 @@ void fileSelected(File selection) {
 
 
 
-
 void draw() {
  if (tablea == null)
     { return; }
@@ -51,6 +50,7 @@ void draw() {
     elementViewerMain.draw();
     
     //draws scatterplot matrix
+    scatterMatrix.addViewer(elementViewerMain);
     scatterMatrix.draw();
     
     //draws parallel coordinates graph

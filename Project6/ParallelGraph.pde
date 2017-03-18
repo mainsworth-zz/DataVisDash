@@ -387,7 +387,7 @@ class ParallelGraph {
       for(int i = 0; i < tablea.getRowCount(); i++)
       {
         
-        TrendLine practiceTrend = new TrendLine(tablea, this, dimensionListing, viewerListing, i);
+        TrendLine practiceTrend = new TrendLine(tablea, this, dimensionListing, viewerListing, i, viewerReference);
         trendLines.add(practiceTrend);
         trendLines.get(i).draw();
 
