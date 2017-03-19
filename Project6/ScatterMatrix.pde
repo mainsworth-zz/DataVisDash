@@ -12,8 +12,11 @@ class ScatterMatrix
   String [] dimensionList = new String[]{"SATM", "SATV", "ACT", "GPA"};
   
   //catalyst variables for moving SPLOM
-  int leftMargin = 410;
-  int topMargin = 356;
+//  int leftMargin = 410;
+//  int topMargin = 356;
+  
+  
+  
   
   //axes and guidelines variables
   int numGuidelines = 4;
@@ -22,10 +25,16 @@ class ScatterMatrix
   int windowBuffer = 15;
 
   //splom variables
+  // matrix boxes
   int boxWidth = 75;
   int boxHeight = 75;
   int spaceBetween = 3;
   
+  //main window box
+  int mainBoxWidth = 400;
+  int mainBoxHeight = 400;
+  
+  // dimensions of scatter matrix
   int topLeftX;
   int topLeftY;
   int splomWidth;
@@ -92,7 +101,7 @@ class ScatterMatrix
           {
               ScatterPlot scatterPlotObject = new ScatterPlot();
               scatterPlotObject.initializeGraph(tablea, this, dimensionList[j], dimensionList[i], false);
-              scatterPlotObject.setPosition(leftMargin + (boxWidth+spaceBetween)*j, topMargin + boxHeight + (boxHeight+spaceBetween)*i, boxWidth, boxHeight);
+              scatterPlotObject.setPosition((topLeftX + mainBoxWidth) + (boxWidth+spaceBetween)*j, topLeftY + 40 + (boxHeight+spaceBetween)*i, boxWidth, boxHeight);
               scatterArray.add(scatterPlotObject);
           }
         }
@@ -100,7 +109,7 @@ class ScatterMatrix
 
       //initializes main graph
       scatterplot.initializeGraph(tablea, this, dimension0, dimension1, true);
-      scatterplot.setPosition(10, height - 410, 400, 400);
+      scatterplot.setPosition(topLeftX, topLeftY, mainBoxWidth, mainBoxHeight);
       selectedPlot = scatterplot;
         if(selectedPlot == null)
         {}

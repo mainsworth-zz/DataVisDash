@@ -4,7 +4,7 @@ class ParallelGraph {
   
   //object references
   ArrayList<TrendLine> trendLines = new ArrayList<TrendLine>();
-  ArrayList<interactionButton> interactionButtons = new ArrayList<interactionButton>();
+//  ArrayList<interactionButton> interactionButtons = new ArrayList<interactionButton>();
   ArrayList<dimensionData> dimensionValues = new ArrayList<dimensionData>();
   ElementViewer viewerReference;
   
@@ -259,8 +259,8 @@ class ParallelGraph {
      float dMin = plotMinD-windowBuffer;
      float dMax = plotMaxD-windowBuffer;
         //Create button interactions to move dimensions
-     interactionButtons.clear();
-     for(int i = 1; i <= numOfDimensions-1; i++)
+//     interactionButtons.clear();
+/*     for(int i = 1; i <= numOfDimensions-1; i++)
      {
 
       float x = map( i, 0, numOfDimensions, dMin, dMax );
@@ -271,7 +271,7 @@ class ParallelGraph {
       interactionButtons.get(i-1).draw();
       
      } 
-    
+    */
     
   }
   

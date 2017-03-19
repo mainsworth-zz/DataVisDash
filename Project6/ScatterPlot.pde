@@ -252,59 +252,55 @@ class ScatterPlot
         int i = 0;
         for (i = 0; i < tablea.getRowCount(); i++)
         {
+          
           if(pointCollection.size()!= tablea.getRowCount() && pointCollection.size() <= tablea.getRowCount())
           {
+            
             float a0 = tablea.getFloat(i, dimension0);
             float a1 = tablea.getFloat(i, dimension1);
             float x = map(a0, minValues[0], maxValues[0], plotMinD, plotMaxD-windowBuffer);
             float y = map(a1, minValues[1], maxValues[1], plotMinE, plotMaxE+windowBuffer);
-            StringList pointValues = new StringList();
+            
+            StringList pointValues = new StringList();          
             pointValues.append(str(i+2));
             pointValues.append(tablea.getString(i, "SATM"));
-//            println(pointValues.get(0));
             pointValues.append(tablea.getString(i, "SATV"));
-//            println(pointValues.get(1));
             pointValues.append(tablea.getString(i, "ACT"));
-//            println(pointValues.get(2));
             pointValues.append(tablea.getString(i, "GPA"));
-//            println(pointValues.get(3));
             pointValues.reverse();
             
             interactionPoint interactionNewPoint = new interactionPoint(i+2, x, y, pointSize, pointValues, elementViewer);
-
             pointCollection.add(interactionNewPoint);
+            
           }
           
             else // points in graph are stored in one array
             {
+              
                for(i = 0; i < pointCollection.size(); i++)
                {
+                 
                  pointCollection.get(i).draw();
+                 
                  if(mainWindow)
                  {
+                   
                    pointCollection.get(i).highlightPoint(); //interaction function
+                 
                  }
                  
-/*                 else
-                 {
-                   if ((i+2) == elementViewer.selectionRow) 
-                   {
-                      fill(pointCollection.get(i).fillColor);
-                      ellipse(pointCollection.get(i).x_value, pointCollection.get(i).y_value, pointCollection.get(i).size, pointCollection.get(i).size); 
-                   }
-                   
-                   else
-                   {
-                     fill(255); 
-                   }
-                 }*/
+                 
                }
-             }
+               
+           }
   
-          }
-         }
+        }
+          
+          
+     }
 
     }
+    
     
   }
   

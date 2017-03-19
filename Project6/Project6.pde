@@ -52,6 +52,7 @@ void draw() {
     elementViewerMain.draw();
     
     //draws scatterplot matrix
+    scatterMatrix.initializeGraph(0, height-410, 500, 500);
     scatterMatrix.addViewer(elementViewerMain);
     scatterMatrix.draw();
     
@@ -62,7 +63,7 @@ void draw() {
     
     //draws parallel coordinates graph
 //    parallelGraph.initializeGraph(tablea, elementViewerMain);
-//    parallelGraph.setPosition(width - 340, 10, 200, 100);
+//    parallelGraph.setPosition(10, 10, 200, 100);
 //    parallelGraph.draw();
 
 
