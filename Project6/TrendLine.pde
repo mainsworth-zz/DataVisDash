@@ -52,12 +52,12 @@ class TrendLine
  void createPoints()
  {
         //sets boundaries of points to boundaries of graph
-        float plotMinD = graphReference.d0 + graphReference.windowBuffer - 150;
-        float plotMaxD = graphReference.d0 + graphReference.w - graphReference.windowBuffer - 25;
-        float plotMinE = graphReference.e0 + graphReference.h - graphReference.windowBuffer - graphReference.axesBuffer - 25;
-        float plotMaxE = graphReference.e0 + graphReference.windowBuffer + 5;
+        float plotMinD = graphReference.d0;
+        float plotMaxD = graphReference.d0 + graphReference.w;
+        float plotMinE = graphReference.e0 + graphReference.h;
+        float plotMaxE = graphReference.e0 + graphReference.windowBuffer;
        
-        float dMin = plotMinD-graphReference.windowBuffer;
+        float dMin = plotMinD+graphReference.windowBuffer;
         float eMin = plotMinE-graphReference.windowBuffer;
         float dMax = plotMaxD-graphReference.windowBuffer;
         float eMax = plotMaxE+graphReference.windowBuffer;  
@@ -69,8 +69,8 @@ class TrendLine
      for(int i = 0; i < graphReference.numOfDimensions; i++)
      {
        
-        float x = map( i+1, 0, graphReference.numOfDimensions, dMin, dMax );
-        float y = map( dataArray[i], graphReference.dimensionValues.get(i).minValue, graphReference.dimensionValues.get(i).maxValue, eMin+10, eMax+50);
+        float x = map( i, 0, graphReference.numOfDimensions-1, dMin, dMax-25 );
+        float y = map( dataArray[i], graphReference.dimensionValues.get(i).minValue, graphReference.dimensionValues.get(i).maxValue, eMin+15, eMax+5);
         StringList pointValues = new StringList();
             pointValues.append(tablea.getString(i, "SATM"));
             pointValues.append(tablea.getString(i, "SATV"));
@@ -96,10 +96,14 @@ class TrendLine
   
   void highlightLine()
   {
-     if(selectedLine)
+     if(selectedLine || rowNumber == viewerReference.selectionRow)
      {
        strokeWeight(10);
        stroke(0,0,255);
+       if(viewerReference.selectionRow != rowNumber)
+       {
+       viewerReference.selectionRow = rowNumber;
+       }
        //updates viewer window values
        
 //       graphReference.elementViewerMain.updateInfoRows(viewerValues);
@@ -142,7 +146,7 @@ class TrendLine
       line3.draw();
 
       strokeWeight(1);
-
+      stroke(105);
    
  }
   

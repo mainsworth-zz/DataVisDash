@@ -20,7 +20,7 @@ class ParallelGraph {
   float [] maxValues;
   
   //settings for the graph
-  float windowBuffer = 0;
+  float windowBuffer = 15;
   float axesBuffer = 0;
   float boxSize = 8;
   int tickMarkCount = 8;
@@ -123,10 +123,10 @@ class ParallelGraph {
   //draws tickmarks on each parallel line
   void drawGuidelines( float plotMinD, float plotMinE, float plotMaxD, float plotMaxE ) 
   {
-    float dMin = plotMinD-windowBuffer - 40;
-    float eMin = plotMinE+windowBuffer;
+    float dMin = plotMinD+windowBuffer;
+    float eMin = plotMinE+windowBuffer - 25;
     float dMax = plotMaxD-windowBuffer;
-    float eMax = plotMaxE+windowBuffer;
+    float eMax = plotMaxE-windowBuffer;
     
     stroke(0);
     noFill();
@@ -221,20 +221,20 @@ class ParallelGraph {
   //draws each parallel line
   void drawDimensions(float plotMinD, float plotMinE, float plotMaxD, float plotMaxE)
   {
-    float dMin = plotMinD-windowBuffer- 25;
+    float dMin = plotMinD+windowBuffer;
     float eMin = plotMinE+windowBuffer;
     float dMax = plotMaxD-windowBuffer - 25;
-    float eMax = plotMaxE+windowBuffer;
+    float eMax = plotMaxE-windowBuffer;
     
     stroke(150);
     noFill();
     
     
     // Draw vertical dimension lines
-    for (int i = 1; i <= numOfDimensions; i++ ) 
+    for (int i = 0; i < numOfDimensions; i++ ) 
     {
       
-      float x = map( i, 0, numOfDimensions, dMin, dMax );
+      float x = map( i, 0, numOfDimensions-1, dMin, dMax );
  //     float y = map( i, 0, numOfDimensions, eMin, eMax );
       
        strokeWeight(5);
@@ -243,7 +243,7 @@ class ParallelGraph {
        line( x-5, eMax - windowBuffer + 5, x, eMax  - windowBuffer);
        line( x, eMax - windowBuffer, x+5, eMax - windowBuffer + 5);
        textAlign(CENTER, CENTER);
-       text( dimensionListing.get(i-1), x+3, height - 30 );
+       text( dimensionListing.get(i), x+3, height - 30 );
        stroke(150);
       
     }
@@ -361,10 +361,10 @@ class ParallelGraph {
     else
     {
       //sets boundaries of graph
-      float plotMinD = d0 + windowBuffer;
-      float plotMaxD = d0 + w - windowBuffer;
-      float plotMinE = e0 + h - windowBuffer - axesBuffer;
-      float plotMaxE = e0 + windowBuffer;
+      float plotMinD = d0;
+      float plotMaxD = d0 + w;
+      float plotMinE = e0 + h;
+      float plotMaxE = e0;
       
       rectMode(CORNERS);
 //      fill(205);
@@ -381,23 +381,31 @@ class ParallelGraph {
       }
       
       populateDataDimensions();
-      drawDimensions(plotMinD-150, plotMinE, plotMaxD-25, plotMaxE+50);
+      drawDimensions(plotMinD, plotMinE, plotMaxD, plotMaxE+50);
       
-      trendLines.clear();
-      for(int i = 0; i < tablea.getRowCount(); i++)
-      {
-        
-        TrendLine practiceTrend = new TrendLine(tablea, this, dimensionListing, viewerListing, i, viewerReference);
-        trendLines.add(practiceTrend);
-        trendLines.get(i).draw();
 
-      }
+ //     trendLines.clear();
+        for(int i = 0; i < tablea.getRowCount(); i++)
+        {
+          if(trendLines.size() != tablea.getRowCount())
+          {
+            TrendLine practiceTrend = new TrendLine(tablea, this, dimensionListing, viewerListing, i, viewerReference);
+            trendLines.add(practiceTrend);
+          }
+          if(i != viewerReference.selectionRow)
+          {
+          trendLines.get(i).draw();
+          }
+        }
       
       //creates window elements
       dimensionButtons(plotMinD-150,plotMaxD-25);
       drawGuidelines(plotMinD-150, plotMinE-50, plotMaxD-25, plotMaxE+50);
       closestLine();
-
+      if(viewerReference.selectionRow != -1)
+      {
+      trendLines.get(viewerReference.selectionRow).draw();
+      }
             
     }
 

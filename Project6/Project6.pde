@@ -62,9 +62,9 @@ void draw() {
     }
     
     //draws parallel coordinates graph
-//    parallelGraph.initializeGraph(tablea, elementViewerMain);
-//    parallelGraph.setPosition(10, 10, 200, 100);
-//    parallelGraph.draw();
+    parallelGraph.initializeGraph(tablea, elementViewerMain);
+    parallelGraph.setPosition(50, 10, 500, 200);
+    parallelGraph.draw();
 
 
 
