@@ -76,7 +76,7 @@ void draw() {
     
     //draws line graph
     lineGraph.initializeGraph(tablea, elementViewerMain);
-    lineGraph.setPosition(700, height - 400, 300, 300);
+    lineGraph.setPosition(width - 350, height - 350, 300, 300);
     lineGraph.draw();
 
 

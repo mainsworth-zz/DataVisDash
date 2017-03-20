@@ -18,7 +18,7 @@ class LineGraph {
   float [] minValues;
   float [] maxValues;
   
-  float windowBuffer = 0;
+  float windowBuffer = 5;
   float axesBuffer = 0;
   float boxSize = 8;
   int tickMarkCount = 8;
@@ -176,7 +176,7 @@ class LineGraph {
 //      fill(205);
 //      rect(0, 0, width, height);
 //      stroke(0); 
-//      fill(255);
+      fill(255);
       
       rect (plotMinD-windowBuffer, plotMaxE, plotMaxD, plotMinE+windowBuffer); //border
       drawGuidelines(plotMinD, plotMinE, plotMaxD, plotMaxE);

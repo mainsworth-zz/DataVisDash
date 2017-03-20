@@ -52,8 +52,8 @@ class interactionBar
   {
     if (overBar() || rowNumber == elementViewerReference.selectionRow)
     {
-      stroke(255,0,0);
-      fill(255,0,0);
+      stroke(205,0,0);
+      fill(205,0,0);
       rect(xValue1, yValue1, xValue2, yValue2);
       if(elementViewerReference.selectionRow != rowNumber)
       {
