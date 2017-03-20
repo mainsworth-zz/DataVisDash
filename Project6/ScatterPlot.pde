@@ -248,12 +248,10 @@ class ScatterPlot
       else
       {
 
-        //points on graph
-        int i = 0;
                   
-        if(pointCollection.size()!= tablea.getRowCount() && pointCollection.size() <= tablea.getRowCount())
+        if(pointCollection.size() < tablea.getRowCount())
         {
-          for (i = 0; i < tablea.getRowCount(); i++)
+          for (int i = 0; i < tablea.getRowCount(); i++)
           {
   
               
@@ -263,28 +261,28 @@ class ScatterPlot
               float y = map(a1, minValues[1], maxValues[1], plotMinE, plotMaxE+windowBuffer);
               
               StringList pointValues = new StringList();          
-              pointValues.append(str(i+2));
+              pointValues.append(str(i));
               pointValues.append(tablea.getString(i, "SATM"));
               pointValues.append(tablea.getString(i, "SATV"));
               pointValues.append(tablea.getString(i, "ACT"));
               pointValues.append(tablea.getString(i, "GPA"));
               pointValues.reverse();
               
-              interactionPoint interactionNewPoint = new interactionPoint(i+2, x, y, pointSize, pointValues, elementViewer);
+              interactionPoint interactionNewPoint = new interactionPoint(i, x, y, pointSize, pointValues, elementViewer);
               pointCollection.add(interactionNewPoint);
               
             }
           
         }
           
-         else // points in graph are stored in one array
+       else // points in graph are stored in one array
          {
                           
 
-               for(i = 0; i < pointCollection.size(); i++)
+               for(int i = 0; i < pointCollection.size(); i++)
                {
 
-                 pointCollection.get(i).draw();
+//                 
                  
                  
                  if(mainWindow)
@@ -294,10 +292,15 @@ class ScatterPlot
                  
                  }
                  
+                 else
+                 {
+                   pointCollection.get(i).draw();
+                 }
+                 
                  
                }
                
-                              if(elementViewerMain.selectionRow != -1)
+               if(elementViewerMain.selectionRow != -1 && !mainWindow)
                {
                   pointCollection.get(elementViewerMain.selectionRow).draw(); 
                }

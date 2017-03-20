@@ -70,7 +70,7 @@ void draw() {
     
     //draws bar graph
     barGraph.initializeGraph(tablea, elementViewerMain);
-    barGraph.setPosition(700, 100, 300, 300);
+    barGraph.setPosition(600, 50, 300, 300);
     barGraph.draw();
 
 

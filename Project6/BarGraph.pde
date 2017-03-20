@@ -27,6 +27,8 @@ class BarGraph {
   int tickMarkCount = 8;
   int numGuidelines = 4;
   
+  int previousHighlight = -1;
+  
   DecimalFormat dfX = new DecimalFormat("#");
   DecimalFormat dfY = new DecimalFormat("#");
   DecimalFormat dfG = new DecimalFormat("#.##");
@@ -196,7 +198,7 @@ class BarGraph {
             String[] barValues = new String[]{str(tablea.getFloat(i, "GPA")), str(tablea.getFloat(i, "ACT")), str(tablea.getFloat(i, "SATM")), str(tablea.getFloat(i, "SATV")), str(i+1)}; 
             
             interactionBar interactionNewBar = new interactionBar();
-            interactionNewBar.createBar(x_1, y, x_2, plotMinE, i+2, elementViewerMain, barValues);
+            interactionNewBar.createBar(x_1, y, x_2, plotMinE, i, elementViewerMain, barValues);
             barCollection.add(interactionNewBar);
           
           }
@@ -204,18 +206,19 @@ class BarGraph {
         
         else // points in graph are stored in one array
         {
+
            for(i = 0; i < barCollection.size(); i++)
            {
-             if(elementViewerMain.selectionRow != i)
-             {
+//             if(elementViewerMain.selectionRow != i)
+//             {
              barCollection.get(i).draw();
-             }
+//             }
            }
            
-           if(elementViewerMain.selectionRow != -1)
-           {
-              barCollection.get(elementViewerMain.selectionRow).draw(); 
-           }
+    //       if(elementViewerMain.selectionRow != -1)
+    //       {
+   //           barCollection.get(elementViewerMain.selectionRow).draw(); 
+     //      }
         }
       
       //create buttons
