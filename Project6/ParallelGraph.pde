@@ -141,7 +141,7 @@ class ParallelGraph {
           fill(255, 0, 0);
 
 
-          println(dimensionValues.get(i-1).minValue);
+ //         println(dimensionValues.get(i-1).minValue);
           textSize(12);
 
   
@@ -243,7 +243,7 @@ class ParallelGraph {
        line( x-5, eMax - windowBuffer + 5, x, eMax  - windowBuffer);
        line( x, eMax - windowBuffer, x+5, eMax - windowBuffer + 5);
        textAlign(CENTER, CENTER);
-       text( dimensionListing.get(i), x+3, height - 30 );
+       text( dimensionListing.get(i), x+3, eMin + 15 );
        stroke(150);
       
     }

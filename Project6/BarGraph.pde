@@ -1,10 +1,10 @@
 
-/*class BarGraph {
+class BarGraph {
   
   //object references
-  interactionButton interaction1 = new interactionButton();
-  interactionButton interaction2 = new interactionButton();
-  ElementViewer elementViewerMain = new ElementViewer();
+//  interactionButton interaction1 = new interactionButton();
+//  interactionButton interaction2 = new interactionButton();
+  ElementViewer elementViewerMain;
   ArrayList<interactionBar> barCollection = new ArrayList<interactionBar>();
   Table tablea;
   
@@ -21,8 +21,8 @@
   float [] minValues;
   float [] maxValues;
   
-  float windowBuffer = 15;
-  float axesBuffer = 50;
+  float windowBuffer = 0;
+  float axesBuffer = 0;
   float barSize = 15;
   int tickMarkCount = 8;
   int numGuidelines = 4;
@@ -40,13 +40,14 @@
     h = _h;
   }
   
-  void initializeGraph(Table _data) 
+  void initializeGraph(Table _data, ElementViewer _viewerReference) 
   {
     if(_data == null)
     {return;}
     else
     {
       tablea = _data;
+      elementViewerMain = _viewerReference;
       if(dimension0 == "")
       {
         dimension0 = "SATM";
@@ -87,8 +88,8 @@
       
     }
 
-    barCollection.clear();
-    elementViewerMain.hideSelectionMenu();
+//    barCollection.clear();
+//    elementViewerMain.hideSelectionMenu();
     
    }
    
@@ -163,67 +164,72 @@
     else
     {
       
-      float plotMinD = d0 + windowBuffer + axesBuffer;
-      float plotMaxD = d0 + w - windowBuffer;
-      float plotMinE = e0 + h - windowBuffer - axesBuffer;
-      float plotMaxE = e0 + windowBuffer;
+      float plotMinD = d0;
+      float plotMaxD = d0 + w;
+      float plotMinE = e0 + h;
+      float plotMaxE = e0;
       
       rectMode(CORNERS);
-      fill(205);
-      rect(0, 0, width, height);
-      stroke(0); 
+//      fill(205);
+//      rect(0, 0, width, height);
+ //     stroke(0); 
       fill(255);
       
       rect (plotMinD-windowBuffer, plotMaxE, plotMaxD, plotMinE+windowBuffer); //border
       drawGuidelines(plotMinD, plotMinE, plotMaxD, plotMaxE);
       drawAxes(plotMinD, plotMinE, plotMaxD, plotMaxE);
       
-
+      fill(0);
 
       //points on graph
       int i = 0;
-      for (i = 0; i < tablea.getRowCount(); i++)
-      {
+   
         if(barCollection.size()!= tablea.getRowCount() && barCollection.size() <= tablea.getRowCount())
         {
+          for (i = 0; i < tablea.getRowCount(); i++)
+          {
+            float a1 = tablea.getFloat(i, dimension1);
+            float x_1 = map(i, 0, tablea.getRowCount(), plotMinD, plotMaxD);
+            float x_2 = map(i+1, 0, tablea.getRowCount(), plotMinD, plotMaxD);
+            float y = map(a1, minValues[1], maxValues[1], plotMinE, plotMaxE);
+            
+            String[] barValues = new String[]{str(tablea.getFloat(i, "GPA")), str(tablea.getFloat(i, "ACT")), str(tablea.getFloat(i, "SATM")), str(tablea.getFloat(i, "SATV")), str(i+1)}; 
+            
+            interactionBar interactionNewBar = new interactionBar();
+            interactionNewBar.createBar(x_1, y, x_2, plotMinE, i+2, elementViewerMain, barValues);
+            barCollection.add(interactionNewBar);
           
-        float a1 = tablea.getFloat(i, dimension1);
-        float x_1 = map(i, 0, tablea.getRowCount(), plotMinD-15, plotMaxD);
-        float x_2 = map(i+1, 0, tablea.getRowCount(), plotMinD-15, plotMaxD);
-        float y = map(a1, minValues[1], maxValues[1], plotMinE, plotMaxE);
-        
-        String[] barValues = new String[]{str(tablea.getFloat(i, "GPA")), str(tablea.getFloat(i, "ACT")), str(tablea.getFloat(i, "SATM")), str(tablea.getFloat(i, "SATV")), str(i+1)}; 
-        
-        interactionBar interactionNewBar = new interactionBar();
-        interactionNewBar.createBar(x_1, y, x_2, height-windowBuffer-axesBuffer+5, elementViewerMain, barValues);
-        barCollection.add(interactionNewBar);
-        
+          }
         }
         
         else // points in graph are stored in one array
         {
-         for(i = 0; i < barCollection.size(); i++)
-         {
-           barCollection.get(i).drawBar();
-           barCollection.get(i).highlightBar();
-         }
-      }
+           for(i = 0; i < barCollection.size(); i++)
+           {
+             if(elementViewerMain.selectionRow != i)
+             {
+             barCollection.get(i).draw();
+             }
+           }
+           
+           if(elementViewerMain.selectionRow != -1)
+           {
+              barCollection.get(elementViewerMain.selectionRow).draw(); 
+           }
+        }
       
       //create buttons
       
       //x axis
-      rectMode(CENTER);
-      interaction1.createButton(axesBuffer+50, height - axesBuffer+15, 75, 30, 255, "Element #", elementViewerMain, false); 
+ //     rectMode(CENTER);
+//      interaction1.createButton(axesBuffer+50, height - axesBuffer+15, 75, 30, 255, "Element #", elementViewerMain, false); 
     
       //y axis
-      interaction2.createButton(axesBuffer-15, height-axesBuffer-55, 30, 75, 255, dimension1, elementViewerMain, true);
-      interaction2.highlightButton();
+ //     interaction2.createButton(axesBuffer-15, height-axesBuffer-55, 30, 75, 255, dimension1, elementViewerMain, true);
+ //     interaction2.highlightButton();
       
-      rectMode(CORNERS);
+//      rectMode(CORNERS);
       
-      //create event viewer
-      elementViewerMain.createViewer(plotMaxD+25, plotMaxE, width - 25, height - axesBuffer-1, 255, tablea, this);
-      elementViewerMain.createInfoRows();
       
 
             
@@ -233,6 +239,4 @@
     
   }
   
-}//definition ends
-
-*/
+//definition ends

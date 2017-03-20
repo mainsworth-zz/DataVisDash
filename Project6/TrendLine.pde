@@ -99,7 +99,7 @@ class TrendLine
      if(selectedLine || rowNumber == viewerReference.selectionRow)
      {
        strokeWeight(10);
-       stroke(0,0,255);
+       stroke(230,0,0);
        if(viewerReference.selectionRow != rowNumber)
        {
        viewerReference.selectionRow = rowNumber;

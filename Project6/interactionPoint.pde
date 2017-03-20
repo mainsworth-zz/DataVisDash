@@ -47,7 +47,11 @@ class interactionPoint
       fill(fillColorHighlight);
       if(mousePressed == true)
       {
-        elementViewerReference.selectionRow = rowNumber;
+        if(elementViewerReference.selectionRow != rowNumber)
+        {
+          elementViewerReference.selectionRow = rowNumber;
+        }
+
         elementViewerReference.updateInfoRows(pointValues);
       }
     }

@@ -4,20 +4,20 @@ class interactionBar
   ElementViewer elementViewerReference;
   
   //style for the button
-  String barValues[] = new String[5];
+  StringList barValues = new StringList();
   
   float xValue1, yValue1, xValue2, yValue2;
   float barWidth, barHeight;
+  int rowNumber;
 
-
-  color fillColor = color(255,0,0);
-  color fillColorHighlight = color(0,0,0);
+//  color fillColor = color(255,0,0);
+//  color fillColorHighlight = color(255,0,0);
   
   //constructor
   interactionBar() {}
 
   
-  void createBar(float _x1, float _y1, float _x2, float _y2, ElementViewer _elementReference, String[] _barValues)
+  void createBar(float _x1, float _y1, float _x2, float _y2, int _row, ElementViewer _elementReference, String[] _barValues)
   {
     elementViewerReference = _elementReference;
     
@@ -26,6 +26,8 @@ class interactionBar
     xValue2 = _x2;
     yValue2 = _y2;
     
+    rowNumber = _row;
+    
     barWidth = (xValue2 - xValue1);
     barHeight = (yValue2 - yValue1);
     
@@ -33,36 +35,40 @@ class interactionBar
     {
       if(_barValues != null)
       {
-        barValues[i] = _barValues[i];
+        barValues.set(i, _barValues[i]);
       }
     }
-    
-    fill(fillColor);
-    rectMode(CORNERS);
-    rect(xValue1, yValue1, xValue2, yValue2);
 
   } 
   
-  void drawBar()
+  void draw()
   {
     rectMode(CORNERS);
-    rect(xValue1, yValue1, xValue2, yValue2);
+    highlightBar();
+  
   }
   
   void highlightBar()
   {
-    if (overBar())
+    if (overBar() || rowNumber == elementViewerReference.selectionRow)
     {
-      fill(fillColorHighlight);
-//      elementViewerReference.updateInfoRows(barValues);
+      stroke(255,0,0);
+      fill(255,0,0);
+      rect(xValue1, yValue1, xValue2, yValue2);
+      if(elementViewerReference.selectionRow != rowNumber)
+      {
+         elementViewerReference.selectionRow = rowNumber; 
+      }
+//      println("Over it.");
+      elementViewerReference.updateInfoRows(barValues);
     }
     
     else
     {
-      fill(fillColor);
+      stroke(0);
+      fill(0);
+      rect(xValue1, yValue1, xValue2, yValue2);
     }
-    
-    rect(xValue1, yValue1, xValue2, yValue2);
     
   }
   
@@ -71,6 +77,7 @@ class interactionBar
     if (mouseX >= xValue1 && mouseX <= xValue2 && 
         mouseY >= yValue1 && mouseY <= yValue2) 
         {
+//          println("over bar");
         return true;} 
     else 
     {return false;}

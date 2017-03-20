@@ -250,37 +250,42 @@ class ScatterPlot
 
         //points on graph
         int i = 0;
-        for (i = 0; i < tablea.getRowCount(); i++)
+                  
+        if(pointCollection.size()!= tablea.getRowCount() && pointCollection.size() <= tablea.getRowCount())
         {
-          
-          if(pointCollection.size()!= tablea.getRowCount() && pointCollection.size() <= tablea.getRowCount())
+          for (i = 0; i < tablea.getRowCount(); i++)
           {
-            
-            float a0 = tablea.getFloat(i, dimension0);
-            float a1 = tablea.getFloat(i, dimension1);
-            float x = map(a0, minValues[0], maxValues[0], plotMinD, plotMaxD-windowBuffer);
-            float y = map(a1, minValues[1], maxValues[1], plotMinE, plotMaxE+windowBuffer);
-            
-            StringList pointValues = new StringList();          
-            pointValues.append(str(i+2));
-            pointValues.append(tablea.getString(i, "SATM"));
-            pointValues.append(tablea.getString(i, "SATV"));
-            pointValues.append(tablea.getString(i, "ACT"));
-            pointValues.append(tablea.getString(i, "GPA"));
-            pointValues.reverse();
-            
-            interactionPoint interactionNewPoint = new interactionPoint(i+2, x, y, pointSize, pointValues, elementViewer);
-            pointCollection.add(interactionNewPoint);
-            
-          }
-          
-            else // points in graph are stored in one array
-            {
+  
               
+              float a0 = tablea.getFloat(i, dimension0);
+              float a1 = tablea.getFloat(i, dimension1);
+              float x = map(a0, minValues[0], maxValues[0], plotMinD, plotMaxD-windowBuffer);
+              float y = map(a1, minValues[1], maxValues[1], plotMinE, plotMaxE+windowBuffer);
+              
+              StringList pointValues = new StringList();          
+              pointValues.append(str(i+2));
+              pointValues.append(tablea.getString(i, "SATM"));
+              pointValues.append(tablea.getString(i, "SATV"));
+              pointValues.append(tablea.getString(i, "ACT"));
+              pointValues.append(tablea.getString(i, "GPA"));
+              pointValues.reverse();
+              
+              interactionPoint interactionNewPoint = new interactionPoint(i+2, x, y, pointSize, pointValues, elementViewer);
+              pointCollection.add(interactionNewPoint);
+              
+            }
+          
+        }
+          
+         else // points in graph are stored in one array
+         {
+                          
+
                for(i = 0; i < pointCollection.size(); i++)
                {
-                 
+
                  pointCollection.get(i).draw();
+                 
                  
                  if(mainWindow)
                  {
@@ -292,6 +297,12 @@ class ScatterPlot
                  
                }
                
+                              if(elementViewerMain.selectionRow != -1)
+               {
+                  pointCollection.get(elementViewerMain.selectionRow).draw(); 
+               }
+   
+               
            }
   
         }
@@ -299,12 +310,12 @@ class ScatterPlot
           
      }
 
-    }
-    
-    
   }
+    
+    
+}
   
 
  
-}
+
  

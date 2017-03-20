@@ -10,6 +10,7 @@ Table tablea;
 ParallelGraph parallelGraph = new ParallelGraph();
 ScatterMatrix scatterMatrix = new ScatterMatrix();
 ElementViewer elementViewerMain = new ElementViewer();
+BarGraph barGraph = new BarGraph();
 
 int selectedRow = -1;
 
@@ -65,7 +66,12 @@ void draw() {
     parallelGraph.initializeGraph(tablea, elementViewerMain);
     parallelGraph.setPosition(50, 10, 500, 200);
     parallelGraph.draw();
-
+    
+    
+    //draws bar graph
+    barGraph.initializeGraph(tablea, elementViewerMain);
+    barGraph.setPosition(700, 100, 300, 300);
+    barGraph.draw();
 
 
   
