@@ -11,6 +11,7 @@ ParallelGraph parallelGraph = new ParallelGraph();
 ScatterMatrix scatterMatrix = new ScatterMatrix();
 ElementViewer elementViewerMain = new ElementViewer();
 BarGraph barGraph = new BarGraph();
+LineGraph lineGraph = new LineGraph();
 
 int selectedRow = -1;
 
@@ -70,8 +71,13 @@ void draw() {
     
     //draws bar graph
     barGraph.initializeGraph(tablea, elementViewerMain);
-    barGraph.setPosition(600, 50, 300, 300);
+    barGraph.setPosition(685, 25, 300, 300);
     barGraph.draw();
+    
+    //draws line graph
+    lineGraph.initializeGraph(tablea, elementViewerMain);
+    lineGraph.setPosition(700, height - 400, 300, 300);
+    lineGraph.draw();
 
 
   
