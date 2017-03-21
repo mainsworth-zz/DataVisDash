@@ -2,8 +2,8 @@
 class BarGraph {
   
   //object references
-//  interactionButton interaction1 = new interactionButton();
-//  interactionButton interaction2 = new interactionButton();
+  interactionButton interaction1 = new interactionButton();
+  interactionButton interaction2 = new interactionButton();
   ElementViewer elementViewerMain;
   ArrayList<interactionBar> barCollection = new ArrayList<interactionBar>();
   Table tablea;
@@ -113,22 +113,22 @@ class BarGraph {
 
       if(dimension0 == "GPA")
       {      
-        text(dfG.format((minValues[0])+(i*((maxValues[0]-minValues[0])/numGuidelines))), x-2, plotMinE + 15 + windowBuffer );
+        text(dfG.format((minValues[0])+(i*((maxValues[0]-minValues[0])/numGuidelines))), x-8, plotMinE + 15 + windowBuffer );
       }
       
       else
       {
-        text(dfX.format((minValues[0])+(i*((maxValues[0]-minValues[0])/numGuidelines))), x-2, plotMinE + 15 + windowBuffer );
+        text(dfX.format((minValues[0])+(i*((maxValues[0]-minValues[0])/numGuidelines))), x-8, plotMinE + 15 + windowBuffer );
       }
       
       if(dimension1 == "GPA")
       {
-        text(dfG.format((minValues[1])+(i*((maxValues[1]-minValues[1])/numGuidelines))), plotMinD - 15 - windowBuffer-5, y-3 );
+        text(dfG.format((minValues[1])+(i*((maxValues[1]-minValues[1])/numGuidelines))), plotMinD - 30, y + 5 );
       }
       
       else
       {
-        text(dfY.format((minValues[1])+(i*((maxValues[1]-minValues[1])/numGuidelines))), plotMinD - 15 - windowBuffer-5, y-3); //numerical values
+        text(dfY.format((minValues[1])+(i*((maxValues[1]-minValues[1])/numGuidelines))), plotMinD - 30, y + 5 ); //numerical values
       }
       
       line( x, eMin, x, eMax );
@@ -224,8 +224,8 @@ class BarGraph {
       //create buttons
       
       //x axis
- //     rectMode(CENTER);
-//      interaction1.createButton(axesBuffer+50, height - axesBuffer+15, 75, 30, 255, "Element #", elementViewerMain, false); 
+      rectMode(CENTER);
+      interaction1.createButton(axesBuffer+50, height - axesBuffer+15, 75, 30, 255, "Element #", elementViewerMain, false); 
     
       //y axis
  //     interaction2.createButton(axesBuffer-15, height-axesBuffer-55, 30, 75, 255, dimension1, elementViewerMain, true);

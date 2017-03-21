@@ -1,3 +1,4 @@
+
 class interactionButton
 {
   //object references
@@ -16,10 +17,14 @@ class interactionButton
   boolean mouseIsOver = false;
   boolean triggerLatch = false;
   boolean mouseCheck = false;
+  boolean turnButton = false;
   
   //constructor
-  interactionButton(float _x1, float _y1, float _x2, float _y2, int _fill, String _text, ParallelGraph _graphReference, String _dimOne, String _dimTwo) 
+  interactionButton() {}
+  
+  void createButton(float _x1, float _y1, float _x2, float _y2, int _fill, String _text, ParallelGraph _graphReference, String _dimOne, String _dimTwo, boolean _turnButton)
   {
+       
     graphReference = _graphReference;
     
     xValue1 = _x1;
@@ -34,8 +39,10 @@ class interactionButton
     
     firstDimension = _dimOne;
     secondDimension = _dimTwo;
-  
-  
+    
+    turnButton = _turnButton;
+    
+    
   }
  
   
@@ -67,13 +74,13 @@ class interactionButton
       {
         fill(fillColor);
       }
-    //redraws object
-    rectMode(CENTER);
-    rect(xValue1, yValue1, boxWidth, boxHeight);
-    rectMode(CORNER);
-    fill(0);
-
-    text(textPhrase, xValue1, yValue1); 
+      //redraws object
+      rectMode(CENTER);
+      rect(xValue1, yValue1, boxWidth, boxHeight);
+      rectMode(CORNER);
+      fill(0);
+  
+      text(textPhrase, xValue1, yValue1); 
     }
 
    
@@ -96,6 +103,19 @@ class interactionButton
   //draws object
   void draw()
   {
+    
+    if(turnButton)
+    {
+      pushMatrix();
+      translate(75/2, height/2);
+      rotate(-HALF_PI);
+      translate(-75/2, -height/2);
+      fill(0);
+      text(textPhrase,75/2 - 185, height/2 - 5);
+      popMatrix();
+      stroke(0);
+    }
+    
     
     fill(fillColor);
     rectMode(CENTER);
