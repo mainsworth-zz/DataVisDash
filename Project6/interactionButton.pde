@@ -97,21 +97,20 @@ class interactionButton
     if(turnButton)
     {
       pushMatrix();
-      translate(75/2, height/2);
+      translate(xValue1,yValue1);
       rotate(-HALF_PI);
-      translate(-75/2, -height/2);
+      translate(-xValue1, -yValue1);
       fill(0);
-      textSize(24);
-//      text(textPhrase,75/2 - 185, height/2 - 5);
+      textSize(18);
+      text(textPhrase, xValue1, yValue1);
       popMatrix();
-      textSize(12);
-      stroke(0);
     }
     else
     {
       textSize(18);
       textAlign(CENTER, CENTER);
-//      text(textPhrase, xValue1, yValue1); 
+      fill(0);
+      text(textPhrase, xValue1, yValue1); 
       textSize(12);
     }
     
@@ -139,32 +138,33 @@ class interactionButton
   void draw()
   {
     
-    if(turnButton)
-    {
-      pushMatrix();
-      translate(75/2, height/2);
-      rotate(-HALF_PI);
-      translate(-75/2, -height/2);
-      fill(0);
-//      text(textPhrase,75/2 - 185, height/2 - 5);
-      popMatrix();
-      stroke(0);
-    }
-    
-    else{
-    fill(fillColor);
+//    fill(fillColor);
     rectMode(CENTER);
     rect(xValue1, yValue1, boxWidth, boxHeight);
     rectMode(CORNER);
-    fill(0); 
     textSize(24);
     textAlign(CENTER, CENTER);
-    text(textPhrase, xValue1, yValue1);
-    fill(255);
-    textSize(12);
     
+    if(turnButton)
+    {
+      pushMatrix();
+      translate(xValue1,yValue1);
+      rotate(-HALF_PI);
+      translate(-xValue1, -yValue1);
+      fill(0);
+      textSize(18);
+      text(textPhrase, xValue1, yValue1);
+      popMatrix();
     }
     
+    else
+    {
+      fill(0);
+      text(textPhrase, xValue1, yValue1);
+      fill(255);
+    
+    }
+    textSize(12);
     highlightButton();
   }
   
