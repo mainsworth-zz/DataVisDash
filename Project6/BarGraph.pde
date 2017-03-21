@@ -225,10 +225,12 @@ class BarGraph {
       
       //x axis
       rectMode(CENTER);
-      interaction1.createButton(axesBuffer+50, height - axesBuffer+15, 75, 30, 255, "Element #", elementViewerMain, false); 
+      interaction1.createButton(d0 + 150, plotMinE + 50, 150, 30, 255, "Element #", false);
+      interaction1.draw();
     
       //y axis
- //     interaction2.createButton(axesBuffer-15, height-axesBuffer-55, 30, 75, 255, dimension1, elementViewerMain, true);
+      interaction2.createButton(d0 - 65, plotMaxE + 140, 30, 150, 255, dimension1, true);
+      interaction2.draw();
  //     interaction2.highlightButton();
       
 //      rectMode(CORNERS);

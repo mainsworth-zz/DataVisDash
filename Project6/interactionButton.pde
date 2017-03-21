@@ -2,8 +2,8 @@
 class interactionButton
 {
   //object references
-  ElementViewer elementViewerReference;
-  ParallelGraph graphReference;
+//  ElementViewer elementViewerReference;
+//  ParallelGraph graphReference;
   
   //style for the button
   String textPhrase = "";
@@ -22,10 +22,10 @@ class interactionButton
   //constructor
   interactionButton() {}
   
-  void createButton(float _x1, float _y1, float _x2, float _y2, int _fill, String _text, ParallelGraph _graphReference, String _dimOne, String _dimTwo, boolean _turnButton)
+  void createButton(float _x1, float _y1, float _x2, float _y2, int _fill, String _text, boolean _turnButton)
   {
        
-    graphReference = _graphReference;
+//    graphReference = _graphReference;
     
     xValue1 = _x1;
     yValue1 = _y1;
@@ -37,50 +37,83 @@ class interactionButton
     fillColor = _fill;
     fillColorHighlight = 100;
     
-    firstDimension = _dimOne;
-    secondDimension = _dimTwo;
+
     
     turnButton = _turnButton;
     
     
+  }
+  
+  void setDimensions(String _dimOne, String _dimTwo)
+  {
+    firstDimension = _dimOne;
+    secondDimension = _dimTwo;
   }
  
   
   //listener function
   void highlightButton()
   {
-    if (overRect())
+ /* if (overRect())
     {
-    fill(fillColorHighlight);
-    if(mousePressed == true)
-    {
-      if(graphReference.updatingDimensions == false)
+      fill(fillColorHighlight);
+      
+      if(mousePressed == true)
       {
-      for(int i = 0; i < graphReference.numOfDimensions; i++)
-      {
-        if(graphReference.dimensionListing.get(i) == secondDimension)
+        if(graphReference.updatingDimensions == false)
         {
-          graphReference.updatingListing.set(i, firstDimension);
-          graphReference.updatingListing.set(i-1, secondDimension);
-          graphReference.updatingDimensions = true;
+          for(int i = 0; i < graphReference.numOfDimensions; i++)
+          {
+            if(graphReference.dimensionListing.get(i) == secondDimension)
+            {
+              graphReference.updatingListing.set(i, firstDimension);
+              graphReference.updatingListing.set(i-1, secondDimension);
+              graphReference.updatingDimensions = true;
+            }
+          }
+          
+          
+          mouseCheck = false;
+          
         }
+        
       }
-        mouseCheck = false;
-      }
-    }
     
     }
+    
     else
       {
         fill(fillColor);
       }
+      */
       //redraws object
       rectMode(CENTER);
       rect(xValue1, yValue1, boxWidth, boxHeight);
       rectMode(CORNER);
       fill(0);
-  
+      
+    if(turnButton)
+    {
+      pushMatrix();
+      translate(75/2, height/2);
+      rotate(-HALF_PI);
+      translate(-75/2, -height/2);
+      fill(0);
+      textSize(24);
+      text(textPhrase,75/2 - 185, height/2 - 5);
+      popMatrix();
+      textSize(12);
+      stroke(0);
+    }
+    else
+    {
+      textSize(18);
+      textAlign(CENTER, CENTER);
       text(textPhrase, xValue1, yValue1); 
+      textSize(12);
+    }
+    
+    
     }
 
    
@@ -122,8 +155,11 @@ class interactionButton
     rect(xValue1, yValue1, boxWidth, boxHeight);
     rectMode(CORNER);
     fill(0); 
+    textSize(24);
+    textAlign(CENTER, CENTER);
     text(textPhrase, xValue1, yValue1);
     fill(255);
+    textSize(12);
     highlightButton();
     
   }
