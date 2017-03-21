@@ -87,11 +87,13 @@ class interactionButton
       }
       */
       //redraws object
+
+      fill(255);
       rectMode(CENTER);
       rect(xValue1, yValue1, boxWidth, boxHeight);
       rectMode(CORNER);
-      fill(0);
-      
+
+     
     if(turnButton)
     {
       pushMatrix();
@@ -100,7 +102,7 @@ class interactionButton
       translate(-75/2, -height/2);
       fill(0);
       textSize(24);
-      text(textPhrase,75/2 - 185, height/2 - 5);
+//      text(textPhrase,75/2 - 185, height/2 - 5);
       popMatrix();
       textSize(12);
       stroke(0);
@@ -109,12 +111,12 @@ class interactionButton
     {
       textSize(18);
       textAlign(CENTER, CENTER);
-      text(textPhrase, xValue1, yValue1); 
+//      text(textPhrase, xValue1, yValue1); 
       textSize(12);
     }
     
     
-    }
+  }
 
    
     
@@ -144,12 +146,12 @@ class interactionButton
       rotate(-HALF_PI);
       translate(-75/2, -height/2);
       fill(0);
-      text(textPhrase,75/2 - 185, height/2 - 5);
+//      text(textPhrase,75/2 - 185, height/2 - 5);
       popMatrix();
       stroke(0);
     }
     
-    
+    else{
     fill(fillColor);
     rectMode(CENTER);
     rect(xValue1, yValue1, boxWidth, boxHeight);
@@ -160,8 +162,10 @@ class interactionButton
     text(textPhrase, xValue1, yValue1);
     fill(255);
     textSize(12);
-    highlightButton();
     
+    }
+    
+    highlightButton();
   }
   
   
