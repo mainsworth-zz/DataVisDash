@@ -146,7 +146,7 @@ class BarGraph {
 
   }
   
-  void closestLine()
+  void closestBar()
   {
     float smallestDistance = Float.MAX_VALUE;
     int smallestIndex = -1;
@@ -154,17 +154,22 @@ class BarGraph {
     {
       
       {
-        //calculates distance between each line segment and the current mouse position
-        float distance = barCollection.get(i).mouseDistance(barCollection.get(i).xValue1, 
-                                                          barCollection.get(i).yValue1, 
-                                                          barCollection.get(i).xValue2, 
-                                                          barCollection.get(i).yValue2);
-        
-        //will return index of closest line
-        if(distance < smallestDistance)
+        if(barCollection.get(i).overBar())
         {
-          smallestDistance = distance;
-          smallestIndex = i;
+          //calculates distance between each line segment and the current mouse position
+          float distance = barCollection.get(i).xValue1 - mouseX;
+          if(distance < 0)
+          {
+            distance = distance * -1; 
+          }
+          
+          //will return index of closest line
+          if(distance < smallestDistance)
+          {
+            smallestDistance = distance;
+            smallestIndex = i;
+          }
+        
         }
         
 
@@ -176,21 +181,14 @@ class BarGraph {
 
     if(smallestIndex != -1)
     {
-      
-      elementViewerMain.headerValues.set(0, str(smallestIndex));
-      for(int i = 0; i < 4; i++)
-      {
-        elementViewerMain.headerValues.set(i+1, tablea.getString(smallestIndex, i)); 
-      }
-      selectedBarIndex = smallestIndex;
-      barCollection.get(selectedBarIndex).draw();
+      elementViewerMain.selectionRow = smallestIndex;
+//      elementViewerMain.headerValues = barCollection.get(selectedBarIndex).barValues.copy(); 
+    }
+
+
   //    println(selectedLineIndex);
   
-    }
-    
-    
   }
-
    
    void draw() 
   {
@@ -256,6 +254,12 @@ class BarGraph {
      //      }
         }
         
+      closestBar();
+      if(elementViewerMain.selectionRow != -1)
+      {
+        barCollection.get(elementViewerMain.selectionRow).highlightBar();
+      }
+            
       drawGuidelines(plotMinD, plotMinE, plotMaxD, plotMaxE);
       stroke(0);
       //create buttons

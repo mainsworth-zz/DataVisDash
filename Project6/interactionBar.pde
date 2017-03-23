@@ -44,8 +44,10 @@ class interactionBar
   void draw()
   {
     rectMode(CORNERS);
-    highlightBar();
     fill(0);
+    rect(xValue1, yValue1, xValue2, yValue2);
+//    highlightBar();
+//    fill(0);
   
   }
   
@@ -74,14 +76,6 @@ class interactionBar
     
   }
   
-  float mouseDistance(float x1, float y1, float x2, float y2) 
-  {
-  
-    float d1 = dist(x1, y1, mouseX, mouseY);
-    float d2 = dist(x2, y2, mouseX, mouseY);
-    
-    return d1+d2;
-  }
   
   boolean overBar()  {
 
