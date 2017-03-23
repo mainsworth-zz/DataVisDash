@@ -46,27 +46,59 @@ class ElementViewer
   //initializes interaction for showing data of a trendline
   void createInfoRows()
   {
-      for(int i=0; i < dataTable.getColumnCount()+1; i++)
+      if(!showSelectionMenu)
       {
-        float y = map( i, 0, dataTable.getColumnCount()+1, bottomRightY, topLeftY );
-  
-        line( topLeftX, y, bottomRightX, y );
-        fill(0);
-        
-        textAlign(CENTER, CENTER);
-        textSize(12);
-        text(headerNames[i], bottomRightX + viewerWidth+55, y-60);
-        
-        if(headerValues.size() == 5)
+        for(int i=0; i < dataTable.getColumnCount()+1; i++)
         {
-        textSize(12);
-        text(headerValues.get(i), bottomRightX + viewerWidth+55, y-20);
-        textSize(12);
+          float y = map( i, 0, dataTable.getColumnCount()+1, bottomRightY, topLeftY );
+    
+          line( topLeftX, y, bottomRightX, y );
+          fill(0);
+          
+          textAlign(CENTER, CENTER);
+          textSize(12);
+          text(headerNames[i], bottomRightX + viewerWidth+55, y-60);
+          
+          if(headerValues.size() == 5)
+          {
+          textSize(12);
+          text(headerValues.get(i), bottomRightX + viewerWidth+55, y-20);
+          textSize(12);
+          }
+          
         }
         
       }
+      
+      else if (showSelectionMenu)
+      {
+      
+        for(int i=0; i < dataTable.getColumnCount(); i++)
+          {
+            float y = map( i, 0, dataTable.getColumnCount(), bottomRightY, topLeftY );
+            
+            rectMode(CORNERS);
+            fill(255,0,0);
+            
+            if(buttonCollection.size()!= tablea.getRowCount() && buttonCollection.size() <= tablea.getRowCount())
+            {
+              interactionButton interactionNewButton = new interactionButton();
+              interactionNewButton.createButton(topLeftX, y, bottomRightX, y-viewerHeight/dataTable.getColumnCount(), 205, headerNames[i], false);
+              buttonCollection.add(interactionNewButton);
+            }
+            
+            else
+            {
+              buttonCollection.get(i).draw();
+//              buttonCollection.get(i).highlightCornerButton(selectedButton);
+            }
+            fill(0);
+            text(headerNames[i], bottomRightX + viewerWidth+55, y-65);
+            
+  
+          }
     
-
+      }
       
   }
   

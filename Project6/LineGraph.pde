@@ -2,8 +2,8 @@
 class LineGraph {
   
   //object references
-//  interactionButton interaction1 = new interactionButton();
-//  interactionButton interaction2 = new interactionButton();
+  interactionButton interaction1 = new interactionButton();
+  interactionButton interaction2 = new interactionButton();
   ElementViewer elementViewerMain;
   ArrayList<interactionPoint> pointCollection = new ArrayList<interactionPoint>();
 
@@ -223,18 +223,20 @@ class LineGraph {
          }
       }
 
-      /*
+      
       //create buttons
       
       //x axis
       rectMode(CENTER);
-      interaction1.createButton(axesBuffer+50, height - axesBuffer+15, 75, 30, 255, dimension0, elementViewerMain, false); 
+      interaction1.createButton(d0 + 148, plotMinE + 55, 150, 30, 255, "Element #", false); 
+      interaction1.draw();
     
       //y axis
-      interaction2.createButton(axesBuffer-15, height-axesBuffer-55, 30, 75, 255, dimension1, elementViewerMain, true);
-      interaction2.highlightButton();
+      interaction2.createButton(d0 - 80, plotMaxE + 150, 30, 150, 255, dimension1, true);
+      interaction2.draw();
+//      interaction2.highlightButton();
       
-      rectMode(CORNERS);
+ /*     rectMode(CORNERS);
       
       //create event viewer
       elementViewerMain.createViewer(plotMaxD+25, plotMaxE, width - 25, height - axesBuffer-1, 255, tablea, this);
