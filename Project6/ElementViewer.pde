@@ -2,7 +2,10 @@
 class ElementViewer
 {
   //object references
-  ParallelGraph graphReference;
+  BarGraph barReference;
+  LineGraph lineReference; 
+  
+  
   ArrayList<interactionButton> buttonCollection = new ArrayList<interactionButton>();
   Table dataTable;
     
@@ -48,13 +51,22 @@ class ElementViewer
   {
       if(!showSelectionMenu)
       {
+        //clears references, so new ones can be made later for interactions
+        
+        lineReference = null;
+        barReference = null; 
+        if(buttonCollection.size() != 0)
+        {
+          buttonCollection.clear();
+        }
+        
         for(int i=0; i < dataTable.getColumnCount()+1; i++)
         {
           float y = map( i, 0, dataTable.getColumnCount()+1, bottomRightY, topLeftY );
     
           line( topLeftX, y, bottomRightX, y );
           fill(0);
-          
+//          fill(205,0,0);
           textAlign(CENTER, CENTER);
           textSize(12);
           text(headerNames[i], bottomRightX - viewerWidth+55, y-60);
@@ -75,26 +87,37 @@ class ElementViewer
       
         for(int i=0; i < dataTable.getColumnCount(); i++)
           {
-            float y = map( i, 0, dataTable.getColumnCount(), bottomRightY, topLeftY );
+            float y = map( i, 0, dataTable.getColumnCount(), bottomRightY - 48, topLeftY - 48 );
             
             rectMode(CORNERS);
             fill(255,0,0);
             
-            if(buttonCollection.size()!= tablea.getRowCount() && buttonCollection.size() <= tablea.getRowCount())
+            if(buttonCollection.size()!= tablea.getColumnCount())
             {
-              interactionButton interactionNewButton = new interactionButton();
-              interactionNewButton.createButton(topLeftX, y, bottomRightX, y-viewerHeight/dataTable.getColumnCount(), 205, headerNames[i], false);
-              buttonCollection.add(interactionNewButton);
+              
+              //interacting with line graph
+              if(lineReference != null)
+              {
+                interactionButton interactionNewButton = new interactionButton();
+                interactionNewButton.createViewerLineButton((topLeftX+bottomRightX)/2, y, viewerWidth, viewerHeight/dataTable.getColumnCount(), 255, headerNames[i], false, true, this, lineReference);
+                buttonCollection.add(interactionNewButton);
+              }
+              
+              else if (barReference != null)
+              {
+                interactionButton interactionNewButton = new interactionButton();
+                interactionNewButton.createViewerBarButton((topLeftX+bottomRightX)/2, y, viewerWidth, viewerHeight/dataTable.getColumnCount(), 255, headerNames[i], false, true, this, barReference);
+                buttonCollection.add(interactionNewButton); 
+              }
+
             }
             
             else
             {
               buttonCollection.get(i).draw();
-//              buttonCollection.get(i).highlightCornerButton(selectedButton);
             }
-            fill(0);
-            text(headerNames[i], bottomRightX + viewerWidth+55, y-65);
             
+            text(headerNames[i], bottomRightX + viewerWidth+55, y-65);
   
           }
     

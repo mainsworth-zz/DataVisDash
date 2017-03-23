@@ -45,7 +45,7 @@ class interactionPoint
     if (overPoint() || rowNumber == elementViewerReference.selectionRow)
     {
       fill(fillColorHighlight);
-      if(mousePressed == true)
+      if(mousePressed == true && overPoint())
       {
         if(elementViewerReference.selectionRow != rowNumber)
         {

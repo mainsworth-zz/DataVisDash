@@ -90,7 +90,7 @@ class LineGraph {
 
     pointCollection.clear();
     
-   }
+  }
     
   
   
@@ -112,6 +112,8 @@ class LineGraph {
       float x = map( i, 0, numGuidelines, dMin, dMax );
       float y = map( i, 0, numGuidelines, eMin, eMax );
       
+      fill(205,0,0);
+      textSize(16);
       text(dfX.format((minValues[0])+(i*((maxValues[0]-minValues[0])/numGuidelines))), x-9, plotMinE + 15 + windowBuffer );
       
       
@@ -221,11 +223,11 @@ class LineGraph {
       
       //x axis
       rectMode(CENTER);
-      interaction1.createButton(d0 + 148, plotMinE + 55, 150, 30, 255, "Element #", false); 
+      interaction1.createLineButton(d0 + 148, plotMinE + 55, 150, 30, 255, "Element #", false, false, this, elementViewerMain); 
       interaction1.draw();
     
       //y axis
-      interaction2.createButton(d0 - 80, plotMaxE + 150, 30, 150, 255, dimension0, true);
+      interaction2.createLineButton(d0 - 80, plotMaxE + 150, 30, 150, 255, dimension0, true, true, this, elementViewerMain);
       interaction2.draw();
 //      interaction2.highlightButton();
       

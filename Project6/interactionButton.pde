@@ -2,8 +2,10 @@
 class interactionButton
 {
   //object references
-//  ElementViewer elementViewerReference;
+  ElementViewer elementViewerReference;
 //  ParallelGraph graphReference;
+    LineGraph lineReference;
+    BarGraph barReference;
   
   //style for the button
   String textPhrase = "";
@@ -19,10 +21,14 @@ class interactionButton
   boolean mouseCheck = false;
   boolean turnButton = false;
   
+  boolean isInteractive = false;
+  boolean isViewerButton = false;
+  
   //constructor
   interactionButton() {}
   
-  void createButton(float _x1, float _y1, float _x2, float _y2, int _fill, String _text, boolean _turnButton)
+  
+  void createViewerLineButton(float _x1, float _y1, float _x2, float _y2, int _fill, String _text, boolean _turnButton, boolean _inter, ElementViewer _viewer, LineGraph _graph)
   {
        
 //    graphReference = _graphReference;
@@ -40,8 +46,87 @@ class interactionButton
 
     
     turnButton = _turnButton;
+    isInteractive = _inter;
     
+    elementViewerReference = _viewer;
+    isViewerButton = true;
     
+    lineReference = _graph;
+  }
+  
+    void createViewerBarButton(float _x1, float _y1, float _x2, float _y2, int _fill, String _text, boolean _turnButton, boolean _inter, ElementViewer _viewer, BarGraph _graph)
+  {
+       
+//    graphReference = _graphReference;
+    
+    xValue1 = _x1;
+    yValue1 = _y1;
+    boxWidth = _x2;
+    boxHeight = _y2;
+    
+    textPhrase = _text;
+    
+    fillColor = _fill;
+    fillColorHighlight = 100;
+    
+
+    
+    turnButton = _turnButton;
+    isInteractive = _inter;
+    
+    elementViewerReference = _viewer;
+    isViewerButton = true;
+    
+    barReference = _graph;
+  }
+  
+  void createBarButton(float _x1, float _y1, float _x2, float _y2, int _fill, String _text, boolean _turnButton, boolean _inter, BarGraph _graph, ElementViewer _viewer)
+  {
+       
+//    graphReference = _graphReference;
+    
+    xValue1 = _x1;
+    yValue1 = _y1;
+    boxWidth = _x2;
+    boxHeight = _y2;
+    
+    textPhrase = _text;
+    
+    fillColor = _fill;
+    fillColorHighlight = 100;
+    
+
+    
+    turnButton = _turnButton;
+    isInteractive = _inter;
+    
+    barReference = _graph;
+    elementViewerReference = _viewer;
+    
+  }
+  
+    void createLineButton(float _x1, float _y1, float _x2, float _y2, int _fill, String _text, boolean _turnButton, boolean _inter, LineGraph _graph, ElementViewer _viewer)
+  {
+       
+//    graphReference = _graphReference;
+    
+    xValue1 = _x1;
+    yValue1 = _y1;
+    boxWidth = _x2;
+    boxHeight = _y2;
+    
+    textPhrase = _text;
+    
+    fillColor = _fill;
+    fillColorHighlight = 100;
+    
+
+    
+    turnButton = _turnButton;
+    isInteractive = _inter;
+    
+    lineReference = _graph;
+    elementViewerReference = _viewer;
   }
   
   void setDimensions(String _dimOne, String _dimTwo)
@@ -54,41 +139,63 @@ class interactionButton
   //listener function
   void highlightButton()
   {
- /* if (overRect())
+  if (overRect() && isInteractive)
     {
       fill(fillColorHighlight);
-      
-      if(mousePressed == true)
+    
+     if(mousePressed == true)
       {
-        if(graphReference.updatingDimensions == false)
+        
+        if(isViewerButton)
         {
-          for(int i = 0; i < graphReference.numOfDimensions; i++)
+          if(lineReference != null)
           {
-            if(graphReference.dimensionListing.get(i) == secondDimension)
-            {
-              graphReference.updatingListing.set(i, firstDimension);
-              graphReference.updatingListing.set(i-1, secondDimension);
-              graphReference.updatingDimensions = true;
-            }
+             elementViewerReference.showSelectionMenu = false;
+//             elementViewerReference.createInfoRows();
+             lineReference.dimension0 = textPhrase;
+             lineReference.reinitializeGraph();
+             
+             
           }
           
+          else if (barReference != null)
+          {
+             elementViewerReference.showSelectionMenu = false;
+             barReference.dimension0 = textPhrase; 
+             barReference.reinitializeGraph();
+
+          }
+         
           
-          mouseCheck = false;
+       }
+       else
+       {
+         if(lineReference != null) // button belongs to line graph
+          {
+            elementViewerReference.showSelectionMenu = true;
+            elementViewerReference.lineReference = lineReference;
+          }
           
-        }
+          else if (barReference != null)
+          {
+            elementViewerReference.showSelectionMenu = true;
+            elementViewerReference.barReference = barReference;
+          }
+       }
+         
         
       }
-    
+        
     }
     
     else
       {
         fill(fillColor);
       }
-      */
+      
       //redraws object
 
-      fill(255);
+//      fill(255);
       rectMode(CENTER);
       rect(xValue1, yValue1, boxWidth, boxHeight);
       rectMode(CORNER);

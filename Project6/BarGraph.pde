@@ -73,8 +73,9 @@ class BarGraph {
   void reinitializeGraph() 
   {
 
-    minValues = new float[]{ 0, Float.MAX_VALUE};
+    minValues = new float[]{0, Float.MAX_VALUE};
     maxValues = new float[]{tablea.getRowCount(), -Float.MAX_VALUE};
+    
     for (int i = 0; i < tablea.getRowCount(); i++)
     {
       float dim0 = tablea.getFloat(i, dimension0);
@@ -85,10 +86,10 @@ class BarGraph {
       
     }
 
-//    barCollection.clear();
-//    elementViewerMain.hideSelectionMenu();
+    barCollection.clear();
     
-   }
+  }
+    
    
    void drawGuidelines( float plotMinD, float plotMinE, float plotMaxD, float plotMaxE ) 
    {
@@ -105,7 +106,7 @@ class BarGraph {
     {
       float x = map( i, 0, numGuidelines, dMin, dMax );
       float y = map( i, 0, numGuidelines, eMin, eMax );
-
+      fill(205,0,0);
       text(dfX.format((minValues[0])+(i*((maxValues[0]-minValues[0])/numGuidelines))), x-8, plotMinE + 15 + windowBuffer );
       
       if(dimension0 == "GPA")
@@ -182,7 +183,7 @@ class BarGraph {
             float x_2 = map(i+1, 0, tablea.getRowCount(), plotMinD, plotMaxD);
             float y = map(a1, minValues[1], maxValues[1], plotMinE, plotMaxE);
             
-            String[] barValues = new String[]{str(tablea.getFloat(i, "GPA")), str(tablea.getFloat(i, "ACT")), str(tablea.getFloat(i, "SATM")), str(tablea.getFloat(i, "SATV")), str(i+1)}; 
+            String[] barValues = new String[]{str(tablea.getFloat(i, "GPA")), str(tablea.getFloat(i, "ACT")), str(tablea.getFloat(i, "SATV")), str(tablea.getFloat(i, "SATM")), str(i+1)}; 
             
             interactionBar interactionNewBar = new interactionBar();
             interactionNewBar.createBar(x_1, y, x_2, plotMinE, i, elementViewerMain, barValues);
@@ -212,11 +213,11 @@ class BarGraph {
       
       //x axis
       rectMode(CENTER);
-      interaction1.createButton(d0 + 150, plotMinE + 50, 150, 30, 255, "Element #", false);
+      interaction1.createBarButton(d0 + 150, plotMinE + 50, 150, 30, 255, "Element #", false, false, this, elementViewerMain);
       interaction1.draw();
     
       //y axis
-      interaction2.createButton(d0 - 65, plotMaxE + 140, 30, 150, 255, dimension0, true);
+      interaction2.createBarButton(d0 - 65, plotMaxE + 140, 30, 150, 255, dimension0, true, true, this, elementViewerMain);
       interaction2.draw();
  //     interaction2.highlightButton();
       
