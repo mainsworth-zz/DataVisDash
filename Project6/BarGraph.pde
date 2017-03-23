@@ -16,9 +16,10 @@ class BarGraph {
   
   //Input values
   String dimension0 = "";
+  String dimension1 = "";
   
-  float minValue;
-  float maxValue;
+  float [] minValues;
+  float [] maxValues;
   
   float windowBuffer = 0;
   float axesBuffer = 0;
@@ -53,17 +54,21 @@ class BarGraph {
       {
         dimension0 = "SATM";
       }
-
+      
+      if(dimension1 == "")
+      {
+        dimension1 = "SATV";
+      }
   
-      minValue = Float.MAX_VALUE;
-      maxValue = -Float.MAX_VALUE;
+      minValues = new float[]{ 0, Float.MAX_VALUE};
+      maxValues = new float[]{tablea.getRowCount(), -Float.MAX_VALUE};
       
       for (int i = 0; i < tablea.getRowCount(); i++)
       {
-        float dim0 = tablea.getFloat(i, dimension0);
+        float dim1 = tablea.getFloat(i, dimension1);
         
-        minValue = min(minValue, dim0);
-        maxValue = max(maxValue, dim0);
+        minValues[1] = min(minValues[1], dim1);
+        maxValues[1] = max(maxValues[1], dim1);
       }
 
     }
@@ -73,14 +78,14 @@ class BarGraph {
   void reinitializeGraph() 
   {
 
-    minValue = Float.MAX_VALUE;
-    maxValue =  -Float.MAX_VALUE;
+    minValues = new float[]{ 0, Float.MAX_VALUE};
+    maxValues = new float[]{tablea.getRowCount(), -Float.MAX_VALUE};
     for (int i = 0; i < tablea.getRowCount(); i++)
     {
-        float dim0 = tablea.getFloat(i, dimension0);
-        
-        minValue = min(minValue, dim0);
-        maxValue = max(maxValue, dim0);
+      float dim1 = tablea.getFloat(i, dimension1);
+      
+      minValues[1] = min(minValues[1], dim1);
+      maxValues[1] = max(maxValues[1], dim1);
       
       
     }
@@ -108,12 +113,22 @@ class BarGraph {
 
       if(dimension0 == "GPA")
       {      
-        text(dfG.format((minValue)+(i*((maxValue-minValue)/numGuidelines))), x-8, plotMinE + 15 + windowBuffer );
+        text(dfG.format((minValues[0])+(i*((maxValues[0]-minValues[0])/numGuidelines))), x-8, plotMinE + 15 + windowBuffer );
       }
       
       else
       {
-        text(dfX.format((minValue)+(i*((maxValue-minValue)/numGuidelines))), x-8, plotMinE + 15 + windowBuffer );
+        text(dfX.format((minValues[0])+(i*((maxValues[0]-minValues[0])/numGuidelines))), x-8, plotMinE + 15 + windowBuffer );
+      }
+      
+      if(dimension1 == "GPA")
+      {
+        text(dfG.format((minValues[1])+(i*((maxValues[1]-minValues[1])/numGuidelines))), plotMinD - 30, y + 5 );
+      }
+      
+      else
+      {
+        text(dfY.format((minValues[1])+(i*((maxValues[1]-minValues[1])/numGuidelines))), plotMinD - 30, y + 5 ); //numerical values
       }
       
       line( x, eMin, x, eMax );
@@ -175,10 +190,10 @@ class BarGraph {
         {
           for (i = 0; i < tablea.getRowCount(); i++)
           {
-            float a1 = tablea.getFloat(i, dimension0);
+            float a1 = tablea.getFloat(i, dimension1);
             float x_1 = map(i, 0, tablea.getRowCount(), plotMinD, plotMaxD);
             float x_2 = map(i+1, 0, tablea.getRowCount(), plotMinD, plotMaxD);
-            float y = map(a1, minValue, maxValue, plotMinE, plotMaxE);
+            float y = map(a1, minValues[1], maxValues[1], plotMinE, plotMaxE);
             
             String[] barValues = new String[]{str(tablea.getFloat(i, "GPA")), str(tablea.getFloat(i, "ACT")), str(tablea.getFloat(i, "SATM")), str(tablea.getFloat(i, "SATV")), str(i+1)}; 
             
@@ -214,7 +229,7 @@ class BarGraph {
       interaction1.draw();
     
       //y axis
-      interaction2.createButton(d0 - 65, plotMaxE + 140, 30, 150, 255, dimension0, true);
+      interaction2.createButton(d0 - 65, plotMaxE + 140, 30, 150, 255, dimension1, true);
       interaction2.draw();
  //     interaction2.highlightButton();
       
