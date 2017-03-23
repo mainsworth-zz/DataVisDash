@@ -13,7 +13,7 @@ class ElementViewer
   int fillColor, columnCount;
 
   int selectionRow = -1;
-  boolean showSelectionMenu = false;
+  boolean showSelectionMenu = true;
 
   ElementViewer() {}
   
@@ -27,7 +27,7 @@ class ElementViewer
     topLeftY = _tLY; 
     bottomRightX = _bRX; 
     bottomRightY = _bRY;
-    viewerWidth = (topLeftX - bottomRightX);
+    viewerWidth = (bottomRightX - topLeftX);
     viewerHeight = (bottomRightY - topLeftY); 
     
   }
@@ -57,12 +57,12 @@ class ElementViewer
           
           textAlign(CENTER, CENTER);
           textSize(12);
-          text(headerNames[i], bottomRightX + viewerWidth+55, y-60);
+          text(headerNames[i], bottomRightX - viewerWidth+55, y-60);
           
           if(headerValues.size() == 5)
           {
           textSize(12);
-          text(headerValues.get(i), bottomRightX + viewerWidth+55, y-20);
+          text(headerValues.get(i), bottomRightX - viewerWidth+55, y-20);
           textSize(12);
           }
           
@@ -75,15 +75,15 @@ class ElementViewer
       
         for(int i=0; i < dataTable.getColumnCount(); i++)
           {
-            float y = map( i, 0, dataTable.getColumnCount(), bottomRightY, topLeftY );
+            float y = map( i, 0, dataTable.getColumnCount(), bottomRightY- 48, topLeftY  - 48 );
             
             rectMode(CORNERS);
             fill(255,0,0);
             
-            if(buttonCollection.size()!= tablea.getRowCount() && buttonCollection.size() <= tablea.getRowCount())
+            if(buttonCollection.size() != tablea.getColumnCount())
             {
               interactionButton interactionNewButton = new interactionButton();
-              interactionNewButton.createButton(topLeftX, y, bottomRightX, y-viewerHeight/dataTable.getColumnCount(), 205, headerNames[i], false);
+              interactionNewButton.createButton((topLeftX+bottomRightX)/2, y, bottomRightX - topLeftX, viewerHeight/dataTable.getColumnCount(), 205, headerNames[i], false);
               buttonCollection.add(interactionNewButton);
             }
             

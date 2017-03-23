@@ -1,7 +1,7 @@
 /**********************************************
 * Name: Matthew Ainsworth                     *
 * Class: Data Visualization - CIS4930         *
-* Assignment: Project 5                       *
+* Assignment: Project 6                       *
 ***********************************************/
 import java.text.DecimalFormat;
 

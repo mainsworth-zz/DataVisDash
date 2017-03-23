@@ -1,5 +1,4 @@
 
-
 class ParallelGraph {
   
   //object references

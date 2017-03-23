@@ -13,10 +13,9 @@ class LineGraph {
   
   //Input values
   Table tablea;
-  String dimension0 = "Element #";
-  String dimension1 = "";
-  float [] minValues;
-  float [] maxValues;
+  String dimension0 = "";
+  float minValue;
+  float maxValue;
   
   float windowBuffer = 5;
   float axesBuffer = 0;
@@ -48,22 +47,22 @@ class LineGraph {
       tablea = _data;
       elementViewerMain = _viewerMain;
 
-      if(dimension1 == "")
+      if(dimension0 == "")
       {
-        dimension1 = "SATV";
+        dimension0 = "SATM";
       }
 
   
   
-      minValues = new float[]{ 0, Float.MAX_VALUE};
-      maxValues = new float[]{tablea.getRowCount(), -Float.MAX_VALUE};
+      minValue = Float.MAX_VALUE;
+      maxValue = -Float.MAX_VALUE;
       for (int i = 0; i < tablea.getRowCount(); i++)
       {
         
-        float dim1 = tablea.getFloat(i, dimension1);
+        float dim0 = tablea.getFloat(i, dimension0);
        
-        minValues[1] = min(minValues[1], dim1);
-        maxValues[1] = max(maxValues[1], dim1);
+        minValue = min(minValue, dim0);
+        maxValue = max(maxValue, dim0);
         
       }
 
@@ -75,15 +74,15 @@ class LineGraph {
   void reinitializeGraph() 
   {
 
-    minValues = new float[]{0, Float.MAX_VALUE};
-    maxValues = new float[]{tablea.getRowCount(), -Float.MAX_VALUE};
+    minValue = Float.MAX_VALUE;
+    maxValue = -Float.MAX_VALUE;
     
     for (int i = 0; i < tablea.getRowCount(); i++)
     {
-      float dim1 = tablea.getFloat(i, dimension1);
+      float dim0 = tablea.getFloat(i, dimension0);
       
-      minValues[1] = min(minValues[1], dim1);
-      maxValues[1] = max(maxValues[1], dim1);
+      minValue = min(minValue, dim0);
+      maxValue = max(maxValue, dim0);
       
       
     }
@@ -114,24 +113,15 @@ class LineGraph {
       
       if(dimension0 == "GPA")
       {      
-        text(dfG.format((minValues[0])+(i*((maxValues[0]-minValues[0])/numGuidelines))), x-9, plotMinE + 15 + windowBuffer );
+        text(dfG.format((minValue)+(i*((maxValue-minValue)/numGuidelines))), x-9, plotMinE + 15 + windowBuffer );
       }
       
       else
       {
-        text(dfX.format((minValues[0])+(i*((maxValues[0]-minValues[0])/numGuidelines))), x-9, plotMinE + 15 + windowBuffer );
+        text(dfX.format((minValue)+(i*((maxValue-minValue)/numGuidelines))), x-9, plotMinE + 15 + windowBuffer );
       }
       
-      if(dimension1 == "GPA")
-      {
-        text(dfG.format((minValues[1])+(i*((maxValues[1]-minValues[1])/numGuidelines))), plotMinD - 30, y + 5 );
-      }
-      
-      else
-      {
-        text(dfY.format((minValues[1])+(i*((maxValues[1]-minValues[1])/numGuidelines))), plotMinD - 30, y + 5); //numerical values
-      }
-      
+
       line( x, eMin, x, eMax-windowBuffer );
       line( dMin, y, dMax+windowBuffer, y );
     }
@@ -191,9 +181,9 @@ class LineGraph {
         for (i = 0; i < tablea.getRowCount(); i++)
         {
           
-        float a1 = tablea.getFloat(i, dimension1);
+        float a1 = tablea.getFloat(i, dimension0);
         float x = map(i, 0, tablea.getRowCount(), plotMinD, plotMaxD-windowBuffer);
-        float y = map(a1, minValues[1], maxValues[1], plotMinE, plotMaxE+windowBuffer);
+        float y = map(a1, minValue, maxValue, plotMinE, plotMaxE+windowBuffer);
         
         StringList pointValues = new StringList();
         pointValues.append(tablea.getString(i, "GPA"));
@@ -232,7 +222,7 @@ class LineGraph {
       interaction1.draw();
     
       //y axis
-      interaction2.createButton(d0 - 80, plotMaxE + 150, 30, 150, 255, dimension1, true);
+      interaction2.createButton(d0 - 80, plotMaxE + 150, 30, 150, 255, dimension0, true);
       interaction2.draw();
 //      interaction2.highlightButton();
       
