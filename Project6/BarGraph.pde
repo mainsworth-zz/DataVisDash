@@ -20,13 +20,15 @@ class BarGraph {
   float [] minValues;
   float [] maxValues;
   
-  float windowBuffer = 0;
+  float windowBuffer = 5;
   float axesBuffer = 0;
   float barSize = 15;
   int tickMarkCount = 8;
   int numGuidelines = 4;
   
   int previousHighlight = -1;
+  
+  int selectedBarIndex = -1;
   
   DecimalFormat dfX = new DecimalFormat("#");
   DecimalFormat dfY = new DecimalFormat("#");
@@ -95,32 +97,33 @@ class BarGraph {
    {
     float dMin = plotMinD-windowBuffer;
     float eMin = plotMinE+windowBuffer;
-    float dMax = plotMaxD;
-    float eMax = plotMaxE;
+    float dMax = plotMaxD-windowBuffer;
+    float eMax = plotMaxE + windowBuffer;
     
     stroke(150);
     noFill();
     
     // Draw Guidelines
-    for (int i = 1; i <= numGuidelines; i++ ) 
+    for (int i = 0; i <= numGuidelines; i++ ) 
     {
       float x = map( i, 0, numGuidelines, dMin, dMax );
       float y = map( i, 0, numGuidelines, eMin, eMax );
       fill(205,0,0);
-      text(dfX.format((minValues[0])+(i*((maxValues[0]-minValues[0])/numGuidelines))), x-8, plotMinE + 15 + windowBuffer );
+      textSize(14);
+      text(dfX.format((minValues[0])+(i*((maxValues[0]-minValues[0])/numGuidelines))), x, plotMinE + 15 + windowBuffer  );
       
       if(dimension0 == "GPA")
       {
-        text(dfG.format((minValues[1])+(i*((maxValues[1]-minValues[1])/numGuidelines))), plotMinD - 30, y + 5 );
+        text(dfG.format((minValues[1])+(i*((maxValues[1]-minValues[1])/numGuidelines))), plotMinD - 30, y );
       }
       
       else
       {
-        text(dfY.format((minValues[1])+(i*((maxValues[1]-minValues[1])/numGuidelines))), plotMinD - 30, y + 5 ); //numerical values
+        text(dfY.format((minValues[1])+(i*((maxValues[1]-minValues[1])/numGuidelines))), plotMinD - 35, y + 5 ); //numerical values
       }
       
-      line( x, eMin, x, eMax );
-      line( dMin, y, dMax, y );
+      line( x, eMin, x, eMax - windowBuffer );
+      line( dMin, y, dMax + windowBuffer, y );
     }
   }
 
@@ -141,6 +144,51 @@ class BarGraph {
     line(dMax, eMin, dMax, eMax);
 
 
+  }
+  
+  void closestLine()
+  {
+    float smallestDistance = Float.MAX_VALUE;
+    int smallestIndex = -1;
+    for(int i = 0; i < barCollection.size(); i++)
+    {
+      
+      {
+        //calculates distance between each line segment and the current mouse position
+        float distance = barCollection.get(i).mouseDistance(barCollection.get(i).xValue1, 
+                                                          barCollection.get(i).yValue1, 
+                                                          barCollection.get(i).xValue2, 
+                                                          barCollection.get(i).yValue2);
+        
+        //will return index of closest line
+        if(distance < smallestDistance)
+        {
+          smallestDistance = distance;
+          smallestIndex = i;
+        }
+        
+
+     }
+     
+    }
+
+    //ensures a closest line has been found  (-1 means no new line found)
+
+    if(smallestIndex != -1)
+    {
+      
+      elementViewerMain.headerValues.set(0, str(smallestIndex));
+      for(int i = 0; i < 4; i++)
+      {
+        elementViewerMain.headerValues.set(i+1, tablea.getString(smallestIndex, i)); 
+      }
+      selectedBarIndex = smallestIndex;
+      barCollection.get(selectedBarIndex).draw();
+  //    println(selectedLineIndex);
+  
+    }
+    
+    
   }
 
    
@@ -166,7 +214,6 @@ class BarGraph {
       fill(255);
       
       rect (plotMinD-windowBuffer, plotMaxE, plotMaxD, plotMinE+windowBuffer); //border
-      drawGuidelines(plotMinD, plotMinE, plotMaxD, plotMaxE);
       drawAxes(plotMinD, plotMinE, plotMaxD, plotMaxE);
       
       fill(0);
@@ -179,14 +226,14 @@ class BarGraph {
           for (i = 0; i < tablea.getRowCount(); i++)
           {
             float a1 = tablea.getFloat(i, dimension0);
-            float x_1 = map(i, 0, tablea.getRowCount(), plotMinD, plotMaxD);
+            float x_1 = map(i, 0, tablea.getRowCount(), plotMinD - windowBuffer, plotMaxD);
             float x_2 = map(i+1, 0, tablea.getRowCount(), plotMinD, plotMaxD);
             float y = map(a1, minValues[1], maxValues[1], plotMinE, plotMaxE);
             
             String[] barValues = new String[]{str(tablea.getFloat(i, "GPA")), str(tablea.getFloat(i, "ACT")), str(tablea.getFloat(i, "SATV")), str(tablea.getFloat(i, "SATM")), str(i+1)}; 
             
             interactionBar interactionNewBar = new interactionBar();
-            interactionNewBar.createBar(x_1, y, x_2, plotMinE, i, elementViewerMain, barValues);
+            interactionNewBar.createBar(x_1, y, x_2, plotMinE + windowBuffer, i, elementViewerMain, barValues);
             barCollection.add(interactionNewBar);
           
           }
@@ -208,7 +255,9 @@ class BarGraph {
    //           barCollection.get(elementViewerMain.selectionRow).draw(); 
      //      }
         }
-      
+        
+      drawGuidelines(plotMinD, plotMinE, plotMaxD, plotMaxE);
+      stroke(0);
       //create buttons
       
       //x axis

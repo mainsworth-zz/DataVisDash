@@ -221,7 +221,7 @@ class interactionButton
       textSize(12);
     }
     
-    
+    fill(0);
   }
 
    

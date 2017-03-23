@@ -106,15 +106,15 @@ class LineGraph {
     noFill();
     
     // Draw Guidelines
-    for (int i = 1; i <= numGuidelines; i++ ) 
+    for (int i = 0; i <= numGuidelines; i++ ) 
     {
       
       float x = map( i, 0, numGuidelines, dMin, dMax );
       float y = map( i, 0, numGuidelines, eMin, eMax );
       
       fill(205,0,0);
-      textSize(16);
-      text(dfX.format((minValues[0])+(i*((maxValues[0]-minValues[0])/numGuidelines))), x-9, plotMinE + 15 + windowBuffer );
+      textSize(14);
+      text(dfX.format((minValues[0])+(i*((maxValues[0]-minValues[0])/numGuidelines))), x, plotMinE + 10 + windowBuffer );
       
       
       if(dimension1 == "GPA")
@@ -124,7 +124,7 @@ class LineGraph {
       
       else
       {
-        text(dfY.format((minValues[1])+(i*((maxValues[1]-minValues[1])/numGuidelines))), plotMinD - 30, y + 5); //numerical values
+        text(dfY.format((minValues[1])+(i*((maxValues[1]-minValues[1])/numGuidelines))), plotMinD - 25, y - 3 ); //numerical values
       }
       
       line( x, eMin, x, eMax-windowBuffer );

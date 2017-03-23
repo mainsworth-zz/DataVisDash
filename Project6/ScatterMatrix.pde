@@ -81,9 +81,9 @@ class ScatterMatrix
       else
       {
       if(dimension0 == "")
-        {  dimension0 = "SATV";  }
+        {  dimension0 = "SATM";  }
       if(dimension1 == "")
-        {  dimension1 = "SATM";  }
+        {  dimension1 = "SATV";  }
         
 
       rectMode(CORNERS);
