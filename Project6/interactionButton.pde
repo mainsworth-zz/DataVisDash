@@ -3,9 +3,10 @@ class interactionButton
 {
   //object references
   ElementViewer elementViewerReference;
-//  ParallelGraph graphReference;
-    LineGraph lineReference;
-    BarGraph barReference;
+  
+  LineGraph lineReference;
+  BarGraph barReference;
+  ParallelGraph parallelReference;
   
   //style for the button
   String textPhrase = "";
@@ -80,6 +81,32 @@ class interactionButton
     barReference = _graph;
   }
   
+  void createViewerParallelButton(float _x1, float _y1, float _x2, float _y2, int _fill, String _text, boolean _turnButton, boolean _inter, ElementViewer _viewer, ParallelGraph _graph)
+  {
+       
+//    graphReference = _graphReference;
+    
+    xValue1 = _x1;
+    yValue1 = _y1;
+    boxWidth = _x2;
+    boxHeight = _y2;
+    
+    textPhrase = _text;
+    
+    fillColor = _fill;
+    fillColorHighlight = 100;
+    
+
+    
+    turnButton = _turnButton;
+    isInteractive = _inter;
+    
+    elementViewerReference = _viewer;
+    isViewerButton = true;
+    
+    parallelReference = _graph;
+  }
+  
   void createBarButton(float _x1, float _y1, float _x2, float _y2, int _fill, String _text, boolean _turnButton, boolean _inter, BarGraph _graph, ElementViewer _viewer)
   {
        
@@ -129,6 +156,30 @@ class interactionButton
     elementViewerReference = _viewer;
   }
   
+    void createPCPButton(float _x1, float _y1, float _x2, float _y2, int _fill, String _text, boolean _turnButton, boolean _inter, ParallelGraph _graph, ElementViewer _viewer)
+  {
+       
+//    graphReference = _graphReference;
+    
+    xValue1 = _x1;
+    yValue1 = _y1;
+    boxWidth = _x2;
+    boxHeight = _y2;
+    
+    textPhrase = _text;
+    
+    fillColor = _fill;
+    fillColorHighlight = 100;
+    
+
+    
+    turnButton = _turnButton;
+    isInteractive = _inter;
+    
+    parallelReference = _graph;
+    elementViewerReference = _viewer;
+  }
+  
   void setDimensions(String _dimOne, String _dimTwo)
   {
     firstDimension = _dimOne;
@@ -165,6 +216,12 @@ class interactionButton
              barReference.reinitializeGraph();
 
           }
+          
+          else if (parallelReference != null)
+          {
+            elementViewerReference.showSelectionMenu = false; 
+            
+          }
          
           
        }
@@ -180,6 +237,12 @@ class interactionButton
           {
             elementViewerReference.showSelectionMenu = true;
             elementViewerReference.barReference = barReference;
+          }
+          
+          else if (parallelReference != null)
+          {
+            elementViewerReference.showSelectionMenu = true;
+            elementViewerReference.parallelReference = parallelReference;
           }
        }
          

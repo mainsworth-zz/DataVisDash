@@ -4,9 +4,14 @@ class ParallelGraph {
   
   //object references
   ArrayList<TrendLine> trendLines = new ArrayList<TrendLine>();
-//  ArrayList<interactionButton> interactionButtons = new ArrayList<interactionButton>();
+  ArrayList<interactionButton> interactionButtons = new ArrayList<interactionButton>();
   ArrayList<dimensionData> dimensionValues = new ArrayList<dimensionData>();
   ElementViewer viewerReference;
+  
+  interactionButton interaction1 = new interactionButton();
+  interactionButton interaction2 = new interactionButton();
+  interactionButton interaction3 = new interactionButton();
+  interactionButton interaction4 = new interactionButton();
   
   //dimensions of the graph
   int d0, e0, w, h;
@@ -59,6 +64,11 @@ class ParallelGraph {
         updatingListing.set(1, "SATV");
         updatingListing.set(2, "ACT");
         updatingListing.set(3, "GPA"); 
+        
+        interactionButtons.add(null);
+        interactionButtons.add(null);
+        interactionButtons.add(null);
+        interactionButtons.add(null);
   }
   
   //sets position of graph
@@ -243,7 +253,8 @@ class ParallelGraph {
        line( x-5, eMax - windowBuffer + 5, x, eMax  - windowBuffer);
        line( x, eMax - windowBuffer, x+5, eMax - windowBuffer + 5);
        textAlign(CENTER, CENTER);
-       text( dimensionListing.get(i), x+3, eMin + 15 );
+       
+//       text( dimensionListing.get(i), x+3, eMin + 15 );
        stroke(150);
       
     }
@@ -253,6 +264,7 @@ class ParallelGraph {
     
   }
   
+  /*
   //creates interaction button objects
   void dimensionButtons(float plotMinD, float plotMaxD)
   {
@@ -271,9 +283,9 @@ class ParallelGraph {
       interactionButtons.get(i-1).draw();
       
      } 
-    */
     
-  }
+    
+  }*/
   
   //function used to determine the closest line in the graph
   void closestLine()
@@ -350,6 +362,54 @@ class ParallelGraph {
     
   }
   
+  void createPCPButtons(float plotMinD, float plotMaxD, float plotMinE, float plotMaxE)
+  {
+    
+    float dMin = plotMinD+windowBuffer;
+    float eMin = plotMinE+windowBuffer;
+    float dMax = plotMaxD-windowBuffer - 25;
+    float eMax = plotMaxE-windowBuffer;
+    
+    for (int i = 0; i < numOfDimensions; i++ ) 
+    {
+      
+      float x = map( i, 0, numOfDimensions-1, dMin, dMax);
+
+//       if(interactionButtons.size() != numOfDimensions)
+//       {
+         interactionButton newButton = new interactionButton();
+         newButton.createPCPButton(x+3, eMin + 30, 75, 30, 255, dimensionListing.get(i), false, true, this, elementViewerMain);
+         interactionButtons.set(i, newButton);
+       
+//       }
+       
+//       else
+//       {
+         interactionButtons.get(i).draw(); 
+//       }
+      
+    }
+    /*
+      interaction1.createPCPButton(d0 + 150, plotMinE + 50, 150, 30, 255, dimensionListing.get(1), false, false, this, elementViewerMain);
+      interaction1.draw();
+      
+      interaction2.createPCPButton(d0 + 150, plotMinE + 50, 150, 30, 255,dimensionListing.get(2), false, false, this, elementViewerMain);
+      interaction2.draw();
+      
+      interaction3.createPCPButton(d0 + 150, plotMinE + 50, 150, 30, 255, dimensionListing.get(3), false, false, this, elementViewerMain);
+      interaction3.draw();
+      
+      interaction4.createPCPButton(d0 + 150, plotMinE + 50, 150, 30, 255, dimensionListing.get(4), false, false, this, elementViewerMain);
+      interaction4.draw();
+    */
+  }
+  
+  void updatePCPButtons()
+  {
+     
+    
+  }
+  
 
   void draw() 
   {
@@ -384,6 +444,8 @@ class ParallelGraph {
       drawDimensions(plotMinD, plotMinE, plotMaxD, plotMaxE+50);
       
 
+      
+
  //     trendLines.clear();
         for(int i = 0; i < tablea.getRowCount(); i++)
         {
@@ -397,15 +459,19 @@ class ParallelGraph {
           trendLines.get(i).draw();
           }
         }
+        
+       createPCPButtons(plotMinD, plotMaxD, plotMinE, plotMaxE);
       
       //creates window elements
-      dimensionButtons(plotMinD-150,plotMaxD-25);
+//      dimensionButtons(plotMinD-150,plotMaxD-25);
       drawGuidelines(plotMinD-150, plotMinE-50, plotMaxD-25, plotMaxE+50);
       closestLine();
       if(viewerReference.selectionRow != -1)
       {
       trendLines.get(viewerReference.selectionRow).draw();
       }
+      
+      
             
     }
 

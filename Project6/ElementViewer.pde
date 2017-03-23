@@ -4,6 +4,7 @@ class ElementViewer
   //object references
   BarGraph barReference;
   LineGraph lineReference; 
+  ParallelGraph parallelReference;
   
   
   ArrayList<interactionButton> buttonCollection = new ArrayList<interactionButton>();
@@ -55,6 +56,8 @@ class ElementViewer
         
         lineReference = null;
         barReference = null; 
+        parallelReference = null;
+        
         if(buttonCollection.size() != 0)
         {
           buttonCollection.clear();
@@ -107,6 +110,13 @@ class ElementViewer
               {
                 interactionButton interactionNewButton = new interactionButton();
                 interactionNewButton.createViewerBarButton((topLeftX+bottomRightX)/2, y, viewerWidth, viewerHeight/dataTable.getColumnCount(), 255, headerNames[i], false, true, this, barReference);
+                buttonCollection.add(interactionNewButton); 
+              }
+              
+              else if (parallelReference != null)
+              {
+                interactionButton interactionNewButton = new interactionButton();
+                interactionNewButton.createViewerParallelButton((topLeftX+bottomRightX)/2, y, viewerWidth, viewerHeight/dataTable.getColumnCount(), 255, headerNames[i], false, true, this, parallelReference);
                 buttonCollection.add(interactionNewButton); 
               }
 
