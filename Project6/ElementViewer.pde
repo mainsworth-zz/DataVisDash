@@ -27,7 +27,7 @@ class ElementViewer
     topLeftY = _tLY; 
     bottomRightX = _bRX; 
     bottomRightY = _bRY;
-    viewerWidth = (topLeftX - bottomRightX);
+    viewerWidth = (bottomRightX - topLeftX);
     viewerHeight = (bottomRightY - topLeftY); 
     
   }
@@ -57,12 +57,12 @@ class ElementViewer
           
           textAlign(CENTER, CENTER);
           textSize(12);
-          text(headerNames[i], bottomRightX + viewerWidth+55, y-60);
+          text(headerNames[i], bottomRightX - viewerWidth+55, y-60);
           
           if(headerValues.size() == 5)
           {
           textSize(12);
-          text(headerValues.get(i), bottomRightX + viewerWidth+55, y-20);
+          text(headerValues.get(i), bottomRightX - viewerWidth+55, y-20);
           textSize(12);
           }
           
