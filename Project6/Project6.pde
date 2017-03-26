@@ -1,21 +1,24 @@
 /**********************************************
 * Name: Matthew Ainsworth                     *
 * Class: Data Visualization - CIS4930         *
-* Assignment: Project 5                       *
+* Assignment: Project 6                       *
 ***********************************************/
 import java.text.DecimalFormat;
 
 //object references
 Table tablea;
+
 ParallelGraph parallelGraph = new ParallelGraph();
 ScatterMatrix scatterMatrix = new ScatterMatrix();
 ElementViewer elementViewerMain = new ElementViewer();
 BarGraph barGraph = new BarGraph();
 LineGraph lineGraph = new LineGraph();
 
+
+//global variable to hold index of selected row
 int selectedRow = -1;
 
-
+// helper function to initialize dashboard
 void setup() {
  size(1200,800);
  background(255);
@@ -26,6 +29,7 @@ void setup() {
 
 }
 
+// allows user to select a dataset to be used from csv file
 void fileSelected(File selection) {
   if (selection == null) {
     println("Window was closed or the user hit cancel.");
@@ -39,7 +43,7 @@ void fileSelected(File selection) {
 
 
 
-
+// draws dashboard, creating each of the objects
 void draw() {
  if (tablea == null)
     { return; }
@@ -49,6 +53,8 @@ void draw() {
     fill(205);
     rect(0, 0, width, height);
     fill(255);
+    
+    
     //draws element viewer
     elementViewerMain.createViewer(width - 130, 10,  width - 20, height - 400, tablea);
     elementViewerMain.draw();
@@ -58,6 +64,7 @@ void draw() {
     scatterMatrix.addViewer(elementViewerMain);
     scatterMatrix.draw();
     
+    // ensures a data row has already been selected
     if(selectedRow != -1)
     {
       scatterMatrix.setSelection(selectedRow);

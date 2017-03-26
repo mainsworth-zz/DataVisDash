@@ -2,9 +2,12 @@
 class LineGraph {
   
   //object references
+  Table tablea;
+  ElementViewer elementViewerMain;
   interactionButton interaction1 = new interactionButton();
   interactionButton interaction2 = new interactionButton();
-  ElementViewer elementViewerMain;
+
+
   ArrayList<interactionPoint> pointCollection = new ArrayList<interactionPoint>();
 
   
@@ -12,24 +15,27 @@ class LineGraph {
   int d0, e0, w, h;
   
   //Input values
-  Table tablea;
+
   String dimension0 = "";
   String dimension1 = "";
   float [] minValues;
   float [] maxValues;
   
+  // properties of the graph
   float windowBuffer = 5;
   float axesBuffer = 0;
   float boxSize = 8;
   int tickMarkCount = 8;
   int numGuidelines = 4;
   
+  // number formatting options
   DecimalFormat dfX = new DecimalFormat("#");
   DecimalFormat dfY = new DecimalFormat("#");
   DecimalFormat dfG = new DecimalFormat("#.##");
 
   //constructor  
   LineGraph() {}
+  
   
   void setPosition (int _d0, int _e0, int _w, int _h)
   {
@@ -38,6 +44,7 @@ class LineGraph {
     w = _w;
     h = _h;
   }
+  
   
   void initializeGraph(Table _data, ElementViewer _viewerMain) 
   {
@@ -95,8 +102,9 @@ class LineGraph {
   
   
 
-  
-  void drawGuidelines( float plotMinD, float plotMinE, float plotMaxD, float plotMaxE ) {
+  // draws guidelines of graph
+  void drawGuidelines( float plotMinD, float plotMinE, float plotMaxD, float plotMaxE ) 
+  {
     float dMin = plotMinD-windowBuffer;
     float eMin = plotMinE+windowBuffer;
     float dMax = plotMaxD-windowBuffer;
@@ -116,7 +124,7 @@ class LineGraph {
       textSize(14);
       text(dfX.format((minValues[0])+(i*((maxValues[0]-minValues[0])/numGuidelines))), x, plotMinE + 10 + windowBuffer );
       
-      
+      // change formatting based on dimension currently selected
       if(dimension1 == "GPA")
       {
         text(dfG.format((minValues[1])+(i*((maxValues[1]-minValues[1])/numGuidelines))), plotMinD - 30, y + 5 );
@@ -133,6 +141,7 @@ class LineGraph {
     
   }
 
+  // draws axes of graph
   void drawAxes( float plotMinD, float plotMinE, float plotMaxD, float plotMaxE ) {
     
     float dMin = plotMinD-windowBuffer;
@@ -161,18 +170,16 @@ class LineGraph {
     
     else
     {
-      
+      // restricts draw function to dimensions of graph
       float plotMinD = d0 + windowBuffer + axesBuffer;
       float plotMaxD = d0 + w - windowBuffer;
       float plotMinE = e0 + h - windowBuffer - axesBuffer;
       float plotMaxE = e0 + windowBuffer;
       
       rectMode(CORNERS);
-//      fill(205);
-//      rect(0, 0, width, height);
-//      stroke(0); 
       fill(255);
       
+      // creates border and draws embellishments
       rect (plotMinD-windowBuffer, plotMaxE, plotMaxD, plotMinE+windowBuffer); //border
       drawGuidelines(plotMinD, plotMinE, plotMaxD, plotMaxE);
       drawAxes(plotMinD, plotMinE, plotMaxD, plotMaxE);
@@ -181,7 +188,7 @@ class LineGraph {
 
       //points on graph
       int i = 0;
-     if(pointCollection.size() < tablea.getRowCount())
+     if(pointCollection.size() != tablea.getRowCount())
       {
         for (i = 0; i < tablea.getRowCount(); i++)
         {
@@ -198,7 +205,6 @@ class LineGraph {
         pointValues.append(str(i+1)); 
         
         interactionPoint interactionNewPoint = new interactionPoint(i, x, y, 5, pointValues, elementViewerMain);
-//        interactionNewPoint.createPoint(x, y, boxSize, elementViewerMain, pointValues);
         pointCollection.add(interactionNewPoint);
         
         }
@@ -229,21 +235,14 @@ class LineGraph {
       //y axis
       interaction2.createLineButton(d0 - 80, plotMaxE + 150, 30, 150, 255, dimension0, true, true, this, elementViewerMain);
       interaction2.draw();
-//      interaction2.highlightButton();
-      
- /*     rectMode(CORNERS);
-      
-      //create event viewer
-      elementViewerMain.createViewer(plotMaxD+25, plotMaxE, width - 25, height - axesBuffer-1, 255, tablea, this);
-      elementViewerMain.createInfoRows();
-   */   
-
-            
-        }
-
+       
     }
-    
+
+
   }
+  
+  
+}
  
 
  

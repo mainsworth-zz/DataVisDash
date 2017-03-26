@@ -1,32 +1,38 @@
 
 class ElementViewer
 {
+  
   //object references
+  Table dataTable;
   BarGraph barReference;
   LineGraph lineReference; 
   ParallelGraph parallelReference;
-  
-  
-  ArrayList<interactionButton> buttonCollection = new ArrayList<interactionButton>();
-  Table dataTable;
-    
-  String [] headerNames = new String []{"GPA", "ACT", "SATV", "SATM", "Element Number"};
+   
+  ArrayList<interactionButton> buttonCollection = new ArrayList<interactionButton>();  
   StringList headerValues = new StringList();
   
-  float topLeftX, topLeftY, bottomRightX, bottomRightY, viewerWidth, viewerHeight;
-  int fillColor, columnCount;
-
+  String [] headerNames = new String []{"GPA", "ACT", "SATV", "SATM", "Element Number"};
+  
+  // variable to keep track of currently selected row
   int selectionRow = -1;
+  
+  // properties of the element viewer
+  int fillColor, columnCount;
+  float topLeftX, topLeftY, bottomRightX, bottomRightY, viewerWidth, viewerHeight;
+
   boolean showSelectionMenu = false;
 
+  // constructor
   ElementViewer() {}
   
-  //creates a new relement viewer
+  
+  // creates a new relement viewer
   void createViewer(float _tLX, float _tLY, float _bRX, float _bRY, Table _table)
   {
+    
     dataTable = _table;
     
-    
+    // sets dimensions of viewer
     topLeftX = _tLX;
     topLeftY = _tLY; 
     bottomRightX = _bRX; 
@@ -45,11 +51,12 @@ class ElementViewer
     createInfoRows();
   }
   
-  //clears current contents of viewer
 
   //initializes interaction for showing data of a trendline
   void createInfoRows()
   {
+    
+      // normal viewing
       if(!showSelectionMenu)
       {
         //clears references, so new ones can be made later for interactions
@@ -65,26 +72,29 @@ class ElementViewer
         
         for(int i=0; i < dataTable.getColumnCount()+1; i++)
         {
+          
           float y = map( i, 0, dataTable.getColumnCount()+1, bottomRightY, topLeftY );
     
           line( topLeftX, y, bottomRightX, y );
+          
           fill(0);
-//          fill(205,0,0);
           textAlign(CENTER, CENTER);
           textSize(12);
+          
           text(headerNames[i], bottomRightX - viewerWidth+55, y-60);
           
           if(headerValues.size() == 5)
           {
-          textSize(12);
-          text(headerValues.get(i), bottomRightX - viewerWidth+55, y-20);
-          textSize(12);
+            textSize(12);
+            text(headerValues.get(i), bottomRightX - viewerWidth+55, y-20);
+            textSize(12);
           }
           
         }
         
       }
       
+      // if an interaction button has been clicked on
       else if (showSelectionMenu)
       {
       
@@ -135,6 +145,7 @@ class ElementViewer
       
   }
   
+  // called when a new row has been selected
   void updateInfoRows(StringList _headers)
   {
       for(int i = 0; i < _headers.size(); i++)
@@ -143,8 +154,7 @@ class ElementViewer
       }
     
   }
-  
-  
+ 
    
 }
   

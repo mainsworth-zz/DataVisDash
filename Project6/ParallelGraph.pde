@@ -3,21 +3,20 @@
 class ParallelGraph {
   
   //object references
-  ArrayList<TrendLine> trendLines = new ArrayList<TrendLine>();
-  ArrayList<interactionButton> interactionButtons = new ArrayList<interactionButton>();
-  ArrayList<dimensionData> dimensionValues = new ArrayList<dimensionData>();
+  Table tablea;
   ElementViewer viewerReference;
   
-  interactionButton interaction1 = new interactionButton();
-  interactionButton interaction2 = new interactionButton();
-  interactionButton interaction3 = new interactionButton();
-  interactionButton interaction4 = new interactionButton();
+  
+  ArrayList<dimensionData> dimensionValues = new ArrayList<dimensionData>();
+  ArrayList<interactionButton> interactionButtons = new ArrayList<interactionButton>();
+  ArrayList<TrendLine> trendLines = new ArrayList<TrendLine>();
+  
   
   //dimensions of the graph
   int d0, e0, w, h;
   
   //Input values
-  Table tablea;
+
   StringList viewerListing = new StringList();
   StringList dimensionListing = new StringList();
   StringList updatingListing = new StringList();
@@ -32,6 +31,7 @@ class ParallelGraph {
   int numGuidelines = 4;
   int numOfDimensions = 4;
   
+  // variable to keep track of current row
   int selectedLineIndex = -1;
   
   //formats for numbers
@@ -150,8 +150,6 @@ class ParallelGraph {
           //numbers for axes
           fill(255, 0, 0);
 
-
- //         println(dimensionValues.get(i-1).minValue);
           textSize(12);
 
   
@@ -211,8 +209,8 @@ class ParallelGraph {
   void drawAxes( float plotMinD, float plotMinE, float plotMaxD, float plotMaxE ) 
   {
     
-    float dMin = plotMinD-windowBuffer;
-    float eMin = plotMinE+windowBuffer;
+    float dMin = plotMinD - windowBuffer;
+    float eMin = plotMinE + windowBuffer;
     float dMax = plotMaxD;
     float eMax = plotMaxE;
 
@@ -245,7 +243,6 @@ class ParallelGraph {
     {
       
       float x = map( i, 0, numOfDimensions-1, dMin, dMax );
- //     float y = map( i, 0, numOfDimensions, eMin, eMax );
       
        strokeWeight(5);
        stroke(0);
@@ -254,38 +251,12 @@ class ParallelGraph {
        line( x, eMax - windowBuffer, x+5, eMax - windowBuffer + 5);
        textAlign(CENTER, CENTER);
        
-//       text( dimensionListing.get(i), x+3, eMin + 15 );
        stroke(150);
       
     }
     
-    
- 
-    
   }
-  
-  /*
-  //creates interaction button objects
-  void dimensionButtons(float plotMinD, float plotMaxD)
-  {
-     float dMin = plotMinD-windowBuffer;
-     float dMax = plotMaxD-windowBuffer;
-        //Create button interactions to move dimensions
-//     interactionButtons.clear();
-/*     for(int i = 1; i <= numOfDimensions-1; i++)
-     {
 
-      float x = map( i, 0, numOfDimensions, dMin, dMax );
-//      float y = map( i, 0, numOfDimensions, eMin, eMax );
-      
-      interactionButton newButton = new interactionButton(x+100, height-30, 100, 35, 255, "<--Switch-->", this, dimensionListing.get(i-1), dimensionListing.get(i));
-      interactionButtons.add(newButton);
-      interactionButtons.get(i-1).draw();
-      
-     } 
-    
-    
-  }*/
   
   //function used to determine the closest line in the graph
   void closestLine()
@@ -295,6 +266,7 @@ class ParallelGraph {
     for(int i = 0; i < trendLines.size(); i++)
     {
       //checks each line segment between each dimension, to further improve accuracy
+      
      if (trendLines.get(i).mouseOnLine(trendLines.get(i).trendPoints.get(0).x_value, trendLines.get(i).trendPoints.get(0).y_value, 
              trendLines.get(i).trendPoints.get(1).x_value, trendLines.get(i).trendPoints.get(1).y_value)
          ||  trendLines.get(i).mouseOnLine(trendLines.get(i).trendPoints.get(1).x_value, trendLines.get(i).trendPoints.get(1).y_value, 
@@ -303,6 +275,7 @@ class ParallelGraph {
              trendLines.get(i).trendPoints.get(3).x_value, trendLines.get(i).trendPoints.get(3).y_value))
       {
         //calculates distance between each line segment and the current mouse position
+        
         float distance1 = trendLines.get(i).mouseDistance(trendLines.get(i).trendPoints.get(0).x_value, 
                                                           trendLines.get(i).trendPoints.get(0).y_value, 
                                                           trendLines.get(i).trendPoints.get(1).x_value, 
@@ -355,13 +328,13 @@ class ParallelGraph {
       selectedLineIndex = smallestIndex;
       trendLines.get(selectedLineIndex).selectedLine = true;
       trendLines.get(selectedLineIndex).draw();
-  //    println(selectedLineIndex);
-  
+
     }
     
     
   }
   
+  // creates interaction buttons for graph
   void createPCPButtons(float plotMinD, float plotMaxD, float plotMinE, float plotMaxE)
   {
     
@@ -375,42 +348,15 @@ class ParallelGraph {
       
       float x = map( i, 0, numOfDimensions-1, dMin, dMax);
 
-//       if(interactionButtons.size() != numOfDimensions)
-//       {
          interactionButton newButton = new interactionButton();
-         newButton.createPCPButton(x+3, eMin + 30, 75, 30, 255, dimensionListing.get(i), false, true, this, elementViewerMain);
+         newButton.createPCPButton(x+3, eMin + 30, 75, 30, 255, dimensionListing.get(i), false, false, this, elementViewerMain);
          interactionButtons.set(i, newButton);
-       
-//       }
-       
-//       else
-//       {
          interactionButtons.get(i).draw(); 
-//       }
       
     }
-    /*
-      interaction1.createPCPButton(d0 + 150, plotMinE + 50, 150, 30, 255, dimensionListing.get(1), false, false, this, elementViewerMain);
-      interaction1.draw();
-      
-      interaction2.createPCPButton(d0 + 150, plotMinE + 50, 150, 30, 255,dimensionListing.get(2), false, false, this, elementViewerMain);
-      interaction2.draw();
-      
-      interaction3.createPCPButton(d0 + 150, plotMinE + 50, 150, 30, 255, dimensionListing.get(3), false, false, this, elementViewerMain);
-      interaction3.draw();
-      
-      interaction4.createPCPButton(d0 + 150, plotMinE + 50, 150, 30, 255, dimensionListing.get(4), false, false, this, elementViewerMain);
-      interaction4.draw();
-    */
-  }
-  
-  void updatePCPButtons()
-  {
-     
-    
-  }
-  
 
+  }
+  
   void draw() 
   {
     if(tablea == null)
@@ -427,48 +373,50 @@ class ParallelGraph {
       float plotMaxE = e0;
       
       rectMode(CORNERS);
-//      fill(205);
-//      rect(0, 0, width, height);
       stroke(0); 
       fill(255);
       
+      // draws border and other embellishments for graph
       rect (plotMinD-windowBuffer, plotMaxE, plotMaxD, plotMinE+windowBuffer); //border
       drawAxes(plotMinD, plotMinE, plotMaxD, plotMaxE);
       
+      
+      // checks to make sure we are updating the dimensions of the graph
       if(updatingDimensions == true)
       {
-      updateDimensions();
+        updateDimensions();
       }
+      
       
       populateDataDimensions();
       drawDimensions(plotMinD, plotMinE, plotMaxD, plotMaxE+50);
       
-
-      
-
- //     trendLines.clear();
-        for(int i = 0; i < tablea.getRowCount(); i++)
-        {
-          if(trendLines.size() != tablea.getRowCount())
-          {
+      for(int i = 0; i < tablea.getRowCount(); i++)
+      {
+        
+         if(trendLines.size() != tablea.getRowCount())
+         {
             TrendLine practiceTrend = new TrendLine(tablea, this, dimensionListing, viewerListing, i, viewerReference);
             trendLines.add(practiceTrend);
-          }
-          if(i != viewerReference.selectionRow)
-          {
-          trendLines.get(i).draw();
-          }
-        }
+         }
+         
+         if(i != viewerReference.selectionRow)
+         {
+            trendLines.get(i).draw();
+         }
+         
+         
+      }
         
        createPCPButtons(plotMinD, plotMaxD, plotMinE, plotMaxE);
       
       //creates window elements
-//      dimensionButtons(plotMinD-150,plotMaxD-25);
       drawGuidelines(plotMinD-150, plotMinE-50, plotMaxD-25, plotMaxE+50);
       closestLine();
+      
       if(viewerReference.selectionRow != -1)
       {
-      trendLines.get(viewerReference.selectionRow).draw();
+        trendLines.get(viewerReference.selectionRow).draw();
       }
       
       
