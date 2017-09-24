@@ -62,7 +62,7 @@ class TrendLine
   
   
  }
-  //<>//
+  //<>// //<>//
  // pulls data from table and creates points on graph, to be connected
  void createPoints()
  {

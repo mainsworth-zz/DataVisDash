@@ -5,7 +5,7 @@ class ScatterPlot
   Table tablea;
   ScatterMatrix matrixReference;
   ElementViewer elementViewer;
- //<>//
+ //<>// //<>//
   ArrayList<interactionPoint> pointCollection = new ArrayList<interactionPoint>();
 
   //dimensions of the graph
